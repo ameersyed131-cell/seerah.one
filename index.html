@@ -131,15 +131,18 @@
     .accordion-item.open .accordion-body { display: block; }
 
     /* BARAKAH STATS */
-    .barakah-section { background: var(--navy); padding: 80px 24px; text-align: center; color: var(--white); }
-    .barakah-section h2 { font-family: var(--font); font-size: clamp(1.8rem, 2.5vw, 2.5rem); font-weight: 700; margin-bottom: 48px; }
-    .barakah-section h2 .accent { color: var(--orange); }
-    .stats-grid { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+    .stats-section { background: var(--navy); padding: clamp(56px,8vw,80px) 24px; }
+    .stats-title { text-align: center; font-size: clamp(1.4rem,3vw,1.9rem); font-weight: 700; color: var(--white); margin-bottom: 48px; }
+    .stats-title span { color: var(--orange); }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; max-width: 1000px; margin: 0 auto; }
+    @media (max-width: 640px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
     .stat-item { display: flex; flex-direction: column; align-items: center; gap: 12px; transition: transform 0.3s; cursor: default; }
-    .stat-item:hover { transform: translateY(-8px) scale(1.05); }
-    .stat-icon { width: 72px; height: 72px; border-radius: 50%; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; }
-    .stat-num { font-family: var(--font); font-size: 2rem; font-weight: 800; color: var(--white); }
-    .stat-label { font-size: 0.9rem; color: rgba(255,255,255,0.7); }
+    .stat-item:hover { transform: translateY(-10px) scale(1.07); }
+    .stat-icon-wrap { width: 100px; height: 80px; background: white; border-radius: 10px; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+    .stat-icon-wrap img { width: 100%; height: 100%; object-fit: contain; padding: 8px; }
+    .stat-number { font-size: clamp(1.6rem,4vw,2rem); font-weight: 700; color: var(--white); }
+    .stat-label { font-size: 0.85rem; color: rgba(255,255,255,0.7); text-align: center; }
+
 
     /* FREE BOOK */
     .free-book { background: var(--navy); padding: 56px 24px; border-top: 2px solid rgba(255,255,255,0.2); }
@@ -412,15 +415,31 @@ May Allah reward you abundantly in this world and the next, and place lasting ba
   </section>
 
   <!-- BARAKAH STATS -->
-  <section class="barakah-section">
-    <h2>This is what <span class="accent">Barakah</span> looks like</h2>
-    <div class="stats-grid">
-      <div class="stat-item"><img src="https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/9152510e7_image.png" alt="Countries Reached" /><div class="stat-icon">🌍</div><div class="stat-num">19+</div><div class="stat-label">Countries Reached</div></div>
-      <div class="stat-item"><div class="stat-icon">🏫</div><div class="stat-num">10+</div><div class="stat-label">Partnered Schools</div></div>
-      <div class="stat-item"><div class="stat-icon">📖</div><div class="stat-num">50+</div><div class="stat-label">Workshops</div></div>
-      <div class="stat-item"><div class="stat-icon">👥</div><div class="stat-num">5000+</div><div class="stat-label">Readers</div></div>
+  <section class="stats-section">
+  <h2 class="stats-title">This is what <span>Barakah</span> looks like</h2>
+  <div class="stats-grid">
+    <div class="stat-item">
+      <div class="stat-icon-wrap"><img src="https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/9152510e7_image.png" alt="Countries Reached" /></div>
+      <div class="stat-number" data-target="29">0+</div>
+      <div class="stat-label">Countries Reached</div>
     </div>
-  </section>
+    <div class="stat-item">
+      <div class="stat-icon-wrap"><img src="https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/6a65bbf41_image.png" alt="Partnered Schools" /></div>
+      <div class="stat-number" data-target="10">0+</div>
+      <div class="stat-label">Partnered Schools</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-icon-wrap"><img src="https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/db3f25b2f_image.png" alt="Workshops" /></div>
+      <div class="stat-number" data-target="50">0+</div>
+      <div class="stat-label">Workshops</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-icon-wrap"><img src="https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/532517a44_image.png" alt="Readers" /></div>
+      <div class="stat-number" data-target="10000">0+</div>
+      <div class="stat-label">Readers</div>
+    </div>
+  </div>
+</section>
 
   <!-- FREE BOOK -->
   <section class="free-book">
