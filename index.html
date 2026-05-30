@@ -562,46 +562,19 @@ May Allah reward you abundantly in this world and the next, and place lasting ba
   document.getElementById('bookPopup').addEventListener('click', function(e) {
     if (e.target === this) closeBookPopup();
   });
-  // ✅ REPLACE with your new Apps Script Web App URL from Step 3
-var SCRIPT_URL = 'var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzmmVhdv0r-nsBNMh1z1q_Sqobj43lrJQNhlnRLQaaKxZBZd6JXalaEXxncEqpeGSrObg/exec';';
-
-function submitBookForm() {
-  var email = document.getElementById('popupEmail')?.value?.trim();
-  var phone = document.getElementById('popupPhone')?.value?.trim();
-
-  if (!email || !phone) {
-    alert('Please fill in both fields.');
-    return;
+  function submitBookForm() {
+    var email = document.getElementById('popupEmail')?.value;
+    var phone = document.getElementById('popupPhone')?.value;
+    if (!email || !phone) { alert('Please fill in both fields.'); return; }
+    // Send to Google Sheet (fire and forget)
+    fetch(GOOGLE_SHEET_URL, {
+      method: 'POST', mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email, phone: phone, timestamp: new Date().toISOString() })
+    }).catch(function() {});
+    document.getElementById('popupContent').innerHTML = '<div class="popup-success">✓ Opening your book now...</div>';
+    setTimeout(function() { window.open(BOOK_URL, '_blank'); closeBookPopup(); }, 900);
   }
-
-  // Show loading state
-  document.getElementById('popupContent').innerHTML =
-    '<div class="popup-success" style="color:#1a3a6b;">⏳ Sending your book...</div>';
-
-  fetch(SCRIPT_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      email: email,
-      phone: phone,
-      timestamp: new Date().toISOString()
-    })
-  })
-  .then(function(res) { return res.json(); })
-  .then(function(data) {
-    if (data.success) {
-      document.getElementById('popupContent').innerHTML =
-        '<div class="popup-success">✅ The book has been sent to your inbox!<br/><small style="color:#888;font-size:0.8rem;">Check your spam folder if you don\'t see it.</small></div>';
-    } else {
-      throw new Error(data.error || 'Unknown error');
-    }
-  })
-  .catch(function(err) {
-    document.getElementById('popupContent').innerHTML =
-      '<div class="popup-success" style="color:red;">❌ Something went wrong. Please try again or contact yunus@seerah.one</div>';
-    console.error(err);
-  });
-}
 
   // ALLIES GRID (12 circles)
   var ALLY_LOGOS = [
