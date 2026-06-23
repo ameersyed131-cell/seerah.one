@@ -3,614 +3,927 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Seerah One – Purpose, Transformation, and Excellence</title>
+  <title>Seerah.one — The Roadmap for Defining Purpose and Delivering Excellence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
   <style>
-    :root {
-      --navy: #1a3a6b; --navy-dark: #122a52; --orange: #e87722; --orange-light: #f59340;
-      --white: #ffffff; --off-white: #f7f6f2; --text: #222222; --text-light: #555555;
-      --border: #e0e0e0; --font: 'Cormorant Garamond', serif; --radius: 8px;
-      --shadow: 0 4px 24px rgba(0,0,0,0.10); --shadow-lg: 0 8px 40px rgba(0,0,0,0.15);
-    }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { font-family: var(--font); color: var(--text); background: var(--white); overflow-x: hidden; }
-    img { max-width: 100%; display: block; } a { text-decoration: none; color: inherit; }
-    ul { list-style: none; } button { cursor: pointer; font-family: var(--font); }
+    :root {
+      --navy: #1a3a6b;
+      --navy-deep: #0E4582;
+      --orange: #e07820;
+      --white: #ffffff;
+      --off-white: #f7f6f0;
+      --bg-gray: #f9f9f9;
+      --text: #000000;
+      --text-muted: #555;
+      --border: #e0e0e0;
+      --font: 'Cormorant Garamond', serif;
+    }
+    body { font-family: var(--font); color: var(--text); background: var(--white); }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+    button { font-family: var(--font); cursor: pointer; border: none; }
+    .page { display: none; }
+    .page.active { display: block; }
 
     /* LOADER */
-    #page-loader { position: fixed; inset: 0; background: var(--white); z-index: 9999; display: flex; align-items: center; justify-content: center; }
-    #page-loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.6s ease, visibility 0.6s ease; }
-    .loader-inner { text-align: center; }
-    .loader-word { display: inline-block; opacity: 0; transform: translateY(-24px); animation: slideDown 0.5s ease forwards; font-family: var(--font); font-weight: 700; font-size: clamp(1.5rem, 3.5vw, 2.5rem); margin: 0 6px; color: var(--navy); }
+    #loader { position: fixed; inset: 0; background: var(--white); z-index: 9999; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 18px; transition: opacity 0.6s; }
+    .loader-words { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 10px; max-width: 95vw; padding: 0 12px; }
+    .loader-word { font-family: var(--font); font-size: clamp(0.85rem, 3.5vw, 2.2rem); font-weight: 700; color: var(--navy); opacity: 0; transform: translateY(-24px); animation: wordIn 0.5s forwards; white-space: nowrap; }
     .loader-word.accent { color: var(--orange); }
-    @keyframes slideDown { to { opacity: 1; transform: translateY(0); } }
-    .loader-bar-wrap { margin: 28px auto 0; width: 160px; height: 2px; background: rgba(26,58,107,0.15); border-radius: 2px; overflow: hidden; }
-    .loader-bar { height: 100%; background: var(--orange); width: 0; animation: barFill 2.5s ease forwards; }
-    @keyframes barFill { to { width: 100%; } }
+    .loader-word:nth-child(1) { animation-delay: 0.1s; }
+    .loader-word:nth-child(2) { animation-delay: 0.3s; }
+    .loader-word:nth-child(3) { animation-delay: 0.5s; }
+    .loader-word:nth-child(4) { animation-delay: 0.7s; }
+    .loader-word:nth-child(5) { animation-delay: 0.9s; }
+    @keyframes wordIn { to { opacity: 1; transform: translateY(0); } }
+    .loader-bar { width: 160px; height: 2px; background: var(--orange); margin-top: 32px; animation: barGrow 2s 0.3s forwards; transform-origin: left; transform: scaleX(0); }
+    @keyframes barGrow { to { transform: scaleX(1); } }
 
-    /* NAVBAR */
-    .navbar { background: var(--navy); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 16px rgba(0,0,0,0.18); }
-    .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 12px 24px; }
-    .nav-links { display: flex; align-items: center; gap: 32px; }
-    .nav-links a { font-size: 1rem; font-weight: 600; color: rgba(255,255,255,0.82); transition: color 0.2s; }
-    .nav-links a:hover { color: var(--orange); }
-    .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; padding: 4px; }
-    .hamburger span { display: block; width: 26px; height: 2.5px; background: var(--white); border-radius: 2px; }
-    .mobile-menu { display: none; flex-direction: column; background: var(--navy); border-top: 1px solid rgba(255,255,255,0.1); padding: 16px 24px 20px; gap: 12px; }
-    .mobile-menu a { font-size: 1rem; font-weight: 600; color: rgba(255,255,255,0.82); padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
-    .mobile-menu.open { display: flex; }
+    /* NAV */
+    nav { position: sticky; top: 0; z-index: 100; background: var(--navy); padding: 0 24px; height: 64px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .nav-logo { background: none; border: none; cursor: pointer; padding: 0; }
+    .nav-logo img { height: 44px; width: auto; }
+    .nav-links { display: flex; gap: 28px; list-style: none; align-items: center; }
+    .nav-links button { background: none; border: none; color: rgba(255,255,255,0.8); font-size: 0.95rem; font-weight: 600; font-family: var(--font); cursor: pointer; transition: color 0.2s; }
+    .nav-links button:hover { color: var(--orange); }
+    .nav-links button.active { color: var(--orange); }
+    .nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
+    .nav-toggle span { width: 24px; height: 2px; background: var(--white); border-radius: 2px; display: block; }
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: var(--navy); padding: 20px 24px; gap: 16px; }
+      .nav-links.open { display: flex; }
+      .nav-toggle { display: flex; }
+    }
 
-    /* BUTTONS */
-    .btn-primary { display: inline-block; background: var(--orange); color: var(--white) !important; padding: 12px 28px; border-radius: var(--radius); font-weight: 700; font-size: 1rem; border: none; transition: background 0.2s, transform 0.15s; }
-    .btn-primary:hover { background: var(--orange-light); transform: translateY(-2px); }
-
-    /* PAGE SYSTEM */
-    .page { display: none; } .page.active { display: block; }
+    .btn-orange { display: inline-block; background: var(--orange); color: var(--white); font-weight: 700; font-size: 0.9rem; padding: 12px 28px; border-radius: 8px; transition: background 0.2s, transform 0.2s; box-shadow: 0 4px 16px rgba(224,120,32,0.3); font-family: var(--font); cursor: pointer; border: none; }
+    .btn-orange:hover { background: #c96b18; transform: translateY(-2px); }
 
     /* HERO */
-    .hero { position: relative; min-height: 560px; display: flex; align-items: center; overflow: hidden; background: #0d1f3c; }
-    .hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.55; z-index: 0; }
-    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to right, rgba(13,31,60,0.85) 40%, rgba(13,31,60,0.4)); z-index: 1; }
-    .hero-content { position: relative; z-index: 2; padding: 80px 80px; max-width: 700px; }
-    .hero-content h1 { font-family: var(--font); font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 700; line-height: 1.25; color: #ffffff; margin-bottom: 20px; }
-    .hero-content h1 .line1 { display: block; }
-    .hero-content h1 .line2 { display: block; }
-    .hero-content h1 .line3 { display: block; }
-    .hero-content p { font-size: 1rem; color: rgba(255,255,255,0.85); line-height: 1.7; max-width: 520px; margin-bottom: 28px; }
+    .hero { position: relative; min-height: 560px; display: flex; align-items: center; overflow: hidden; }
+    .hero video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.55; z-index: 0; }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to right, rgba(13,31,60,0.9) 0%, rgba(13,31,60,0.7) 50%, rgba(13,31,60,0.4) 100%); z-index: 1; }
+    .hero-content { position: relative; z-index: 2; padding: clamp(48px,8vw,80px) clamp(24px,6vw,80px); max-width: 700px; }
+    .hero-content h1 { font-size: clamp(1.8rem,4.5vw,2.8rem); font-weight: 700; line-height: 1.3; color: var(--white); margin-bottom: 20px; }
+    .hero-content h1 span { color: var(--orange); }
+    .hero-content p { color: rgba(255,255,255,0.85); font-size: clamp(0.9rem,2vw,1rem); line-height: 1.75; max-width: 520px; margin-bottom: 28px; }
 
-    /* QUOTE */
-    .quote-section { background: var(--white); padding: 60px 24px 40px; text-align: center; }
-    .quote-text { font-family: var(--font); font-size: clamp(1.3rem, 2.5vw, 2rem); color: var(--text); max-width: 760px; margin: 0 auto; line-height: 1.55; }
-    .quote-text .highlight { color: var(--orange); font-weight: 700; }
-    .quote-source { font-size: 0.9rem; color: var(--text-light); margin-top: 10px; }
+    .quote-section { background: var(--white); text-align: center; padding: clamp(40px,6vw,64px) 24px; }
+    .quote-section p.main-quote { font-size: clamp(1.1rem,2.5vw,1.6rem); max-width: 760px; margin: 0 auto; line-height: 1.6; color: var(--text); }
+    .quote-section p.main-quote .accent { color: var(--orange); font-weight: 700; }
+    .quote-section .ref { font-size: 0.85rem; color: var(--text-muted); margin-top: 12px; }
 
-    /* TWO COL INFO (two images with hover expand) */
-    .two-col-info { max-width: 1100px; margin: 40px auto; padding: 0 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: stretch; }
-    .images-flex { display: flex; gap: 12px; min-height: 340px; }
-    .img-panel { flex: 0.5; overflow: hidden; border-radius: 14px; transition: flex 0.5s cubic-bezier(.4,0,.2,1), box-shadow 0.35s; cursor: pointer; }
-    .img-panel:hover { flex: 1.6 !important; box-shadow: 0 12px 40px rgba(0,0,0,0.22); }
+    .what-section { background: var(--white); padding: 0 24px clamp(40px,6vw,56px); }
+    .what-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; }
+    @media (min-width: 768px) { .what-inner { grid-template-columns: 1fr 1fr; gap: 56px; } }
+    .images-flex { display: flex; gap: 12px; min-height: 300px; }
+    .img-panel { flex: 0.5; overflow: hidden; border-radius: 14px; transition: flex 0.5s cubic-bezier(.4,0,.2,1), box-shadow 0.35s; cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+    .img-panel:hover { flex: 1.6; box-shadow: 0 12px 40px rgba(0,0,0,0.22); }
     .images-flex:hover .img-panel { flex: 0.4; }
-    .img-panel img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-    .img-panel:hover img { transform: scale(1.05); }
-    .info-text { display: flex; flex-direction: column; justify-content: space-between; }
-    .info-text p { font-size: 1rem; color: var(--text-light); line-height: 1.8; margin-bottom: 24px; flex: 1; }
+    .img-panel img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+    .what-text p { font-size: 1rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 24px; }
 
-    /* WORKSHOP INSIGHTS / VOICES */
-    .navy-section { background: var(--navy); color: var(--white); padding: 72px 24px 80px; }
-    .section-header { text-align: center; margin-bottom: 48px; }
-    .section-header h2 { font-family: var(--font); font-size: clamp(1.6rem, 2.5vw, 2.8rem); font-weight: 700; margin-bottom: 12px; }
-    .section-header h2 .accent { color: var(--orange); }
-    .section-header p { font-size: 1rem; opacity: 0.8; max-width: 900px; margin: 0 auto; line-height: 1.7; }
-    .cards-grid { max-width: 1180px; margin: 0 auto 48px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-    .card { background: var(--white); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.22s, box-shadow 0.22s; }
-    .card:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(0,0,0,0.18); }
-    .card-img { height: 170px; overflow: hidden; flex-shrink: 0; }
-    .card-img img { width: 100%; height: 100%; object-fit: cover; }
-    .card-body { padding: 22px 20px 18px; flex: 1; display: flex; flex-direction: column; }
-    .card-body h3 { font-family: var(--font); font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; color: var(--text); }
-    .card-body p { font-size: 0.95rem; color: #444; line-height: 1.65; flex: 1; margin-bottom: 14px; }
-    .card-cta { color: var(--orange); font-weight: 700; font-size: 0.9rem; }
-    .center-btn { text-align: center; }
+    .insights-section { background: var(--navy); padding: clamp(56px,8vw,80px) 24px; }
+    .insights-section h2 { text-align: center; font-size: clamp(1.6rem,3.5vw,2.4rem); font-weight: 800; color: var(--white); margin-bottom: 16px; }
+    .insights-section h2 span { color: var(--orange); }
+    .insights-section .sub { text-align: center; color: rgba(255,255,255,0.75); font-size: 0.95rem; max-width: 900px; margin: 0 auto 40px; line-height: 1.7; }
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; max-width: 1180px; margin: 0 auto 36px; }
+    .insight-card { background: var(--white); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; text-decoration: none; color: inherit; }
+    .insight-card:hover { transform: translateY(-6px); box-shadow: 0 10px 32px rgba(0,0,0,0.2); }
+    .insight-card .card-img { height: 176px; overflow: hidden; }
+    .insight-card .card-img img { width: 100%; height: 100%; object-fit: cover; }
+    .insight-card .card-body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
+    .insight-card h3 { font-size: 1.05rem; font-weight: 800; color: var(--text); margin-bottom: 10px; }
+    .insight-card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px; flex: 1; }
+    .insight-card .cta { color: var(--orange); font-weight: 700; font-size: 0.88rem; }
+    .insights-cta { text-align: center; }
 
-    /* VOICE CARDS */
+    .allies-section { background: var(--white); padding: clamp(56px,8vw,80px) 24px; }
+    .allies-inner { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px; align-items: center; }
+    @media (min-width: 768px) { .allies-inner { flex-direction: row; gap: 64px; } }
+    .allies-text { flex-shrink: 0; max-width: 320px; }
+    .allies-text h2 { font-size: clamp(1.6rem,3.5vw,2.2rem); font-weight: 700; color: var(--text); margin-bottom: 16px; }
+    .allies-text h2 span { color: var(--orange); }
+    .allies-text p { color: var(--text-muted); font-size: 1rem; line-height: 1.7; }
+    .allies-box { flex: 1; border: 2px solid var(--orange); border-radius: 18px; padding: 24px; width: 100%; }
+    .allies-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .ally-circle { width: 72px; height: 72px; border-radius: 50%; border: 2px solid var(--border); background: var(--off-white); overflow: hidden; transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s; cursor: pointer; margin: 0 auto; }
+    .ally-circle:hover { border-color: var(--orange); transform: scale(1.1); box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+    .ally-circle img { width: 100%; height: 100%; object-fit: cover; }
+
+    .voices-section { background: var(--navy); padding: clamp(56px,8vw,80px) 24px; }
+    .voices-title { text-align: center; font-size: clamp(1.6rem,3.5vw,2.4rem); font-weight: 700; color: var(--white); margin-bottom: 36px; }
+    .voices-title span { color: var(--orange); }
+    .voices-grid { display: grid; grid-template-columns: 1fr; gap: 20px; max-width: 1180px; margin: 0 auto 36px; }
+    @media (min-width: 640px) { .voices-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .voices-grid { grid-template-columns: repeat(4, 1fr); } }
     .voice-card { background: var(--white); border-radius: 14px; padding: 22px; display: flex; flex-direction: column; border: 1px solid rgba(255,255,255,0.1); transition: transform 0.3s, box-shadow 0.3s; cursor: default; }
     .voice-card:hover { transform: translateY(-8px); box-shadow: 0 20px 56px rgba(0,0,0,0.28); }
-    .voice-quote-open { font-size: 3.5rem; line-height: 1; color: var(--orange); font-weight: 700; margin-bottom: 8px; }
-    .voice-text { font-size: 0.95rem; color: var(--text); line-height: 1.7; flex: 1; margin-bottom: 10px; }
-    .voice-quote-close { font-size: 3.5rem; color: var(--orange); font-weight: 700; line-height: 1; text-align: right; margin-bottom: 14px; }
-    .voice-author { display: flex; align-items: center; gap: 10px; padding-top: 12px; border-top: 1px solid var(--border); }
+    .voice-quote-open, .voice-quote-close { font-size: 3rem; line-height: 1; color: var(--orange); font-weight: 700; }
+    .voice-quote-close { text-align: right; margin-bottom: 12px; }
+    .voice-text { flex: 1; font-size: 0.9rem; color: var(--text); line-height: 1.65; margin: 8px 0 10px; }
+    .voice-footer { display: flex; align-items: center; gap: 12px; padding-top: 12px; border-top: 1px solid rgba(0,0,0,0.08); }
     .voice-avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
-    .voice-name { color: var(--orange); font-weight: 700; font-size: 0.9rem; }
-    .voice-role { color: var(--text-light); font-size: 0.8rem; }
+    .voice-name { font-weight: 700; font-size: 0.9rem; color: var(--orange); }
+    .voice-role { font-size: 0.78rem; color: var(--text-muted); }
+    .voices-cta { text-align: center; }
 
-    /* ALLIES */
-    .allies-section { background: var(--white); padding: 72px 24px; }
-    .allies-inner { max-width: 1100px; margin: 0 auto; display: flex; gap: 60px; align-items: center; }
-    .allies-text { flex: 0 0 340px; }
-    .allies-text h2 { font-family: var(--font); font-size: clamp(1.8rem, 2.5vw, 2.8rem); font-weight: 700; margin-bottom: 16px; }
-    .allies-text h2 .accent { color: var(--orange); }
-    .allies-text p { font-size: 1rem; color: var(--text-light); line-height: 1.75; }
-    .allies-grid-wrap { flex: 1; border: 2px solid var(--orange); border-radius: 16px; padding: 20px 24px; }
-    .allies-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; justify-items: center; }
-    .ally-circle { width: 68px; height: 68px; border-radius: 50%; border: 2px solid var(--border); background: var(--off-white); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: var(--text-light); font-weight: 600; overflow: hidden; transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s; cursor: pointer; }
-    .ally-circle:hover { border-color: var(--orange); transform: scale(1.1); box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
-    .ally-circle:hover { border-color: var(--orange); }
+    .why-section { background: var(--white); padding: clamp(56px,8vw,80px) 24px; }
+    .why-inner { max-width: 900px; margin: 0 auto; }
+    .why-inner h2 { font-size: clamp(1.6rem,3.5vw,2.2rem); font-weight: 700; color: var(--text); margin-bottom: 8px; }
+    .why-inner h2 span { color: var(--orange); }
+    .why-inner > p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.7; margin-bottom: 32px; }
+    .faq-item { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 12px; }
+    .faq-question { width: 100%; padding: 18px 20px; font-weight: 600; color: var(--text); cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 1rem; background: var(--white); border: none; font-family: var(--font); text-align: left; transition: background 0.2s; }
+    .faq-question:hover { background: #faf9f4; }
+    .faq-chevron { transition: transform 0.3s; font-size: 1.1rem; color: var(--orange); }
+    .faq-question.open .faq-chevron { transform: rotate(180deg); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s; }
+    .faq-answer.open { max-height: 200px; }
+    .faq-answer-inner { padding: 0 20px 16px; color: var(--text-muted); font-size: 0.95rem; line-height: 1.7; }
 
-    /* WHY CHOOSE */
-    .why-choose { max-width: 900px; margin: 0 auto; padding: 72px 24px; }
-    .why-choose h2 { font-family: var(--font); font-size: clamp(1.6rem, 2.5vw, 2.2rem); font-weight: 700; margin-bottom: 8px; }
-    .why-choose h2 .accent { color: var(--orange); }
-    .why-choose > p { font-size: 1rem; color: var(--text-light); margin-bottom: 32px; line-height: 1.7; }
-    .accordion-item { border: 1.5px solid var(--border); border-radius: var(--radius); margin-bottom: 12px; overflow: hidden; }
-    .accordion-header { display: flex; justify-content: space-between; align-items: center; padding: 18px 22px; background: var(--white); cursor: pointer; font-weight: 600; font-size: 1rem; transition: background 0.2s; }
-    .accordion-header:hover { background: var(--off-white); }
-    .accordion-icon { font-size: 1.3rem; color: var(--orange); transition: transform 0.3s; }
-    .accordion-item.open .accordion-icon { transform: rotate(180deg); }
-    .accordion-body { display: none; padding: 0 22px 18px; font-size: 0.95rem; color: var(--text-light); line-height: 1.7; }
-    .accordion-item.open .accordion-body { display: block; }
-
-    /* BARAKAH STATS */
     .stats-section { background: var(--navy); padding: clamp(56px,8vw,80px) 24px; }
-    .stats-title { text-align: center; font-size: clamp(1.4rem,3vw,1.9rem); font-weight: 700; color: var(--white); margin-bottom: 48px; }
+    .stats-title { text-align: center; font-size: clamp(1.4rem,3vw,2rem); font-weight: 800; color: var(--white); margin-bottom: 48px; }
     .stats-title span { color: var(--orange); }
-    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; max-width: 1000px; margin: 0 auto; }
-    @media (max-width: 640px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+    .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; max-width: 1000px; margin: 0 auto; }
+    @media (min-width: 768px) { .stats-grid { grid-template-columns: repeat(4, 1fr); } }
     .stat-item { display: flex; flex-direction: column; align-items: center; gap: 12px; transition: transform 0.3s; cursor: default; }
     .stat-item:hover { transform: translateY(-10px) scale(1.07); }
-    .stat-icon-wrap { width: 100px; height: 80px; background: white; border-radius: 10px; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
-    .stat-icon-wrap img { width: 100%; height: 100%; object-fit: contain; padding: 8px; }
-    .stat-number { font-size: clamp(1.6rem,4vw,2rem); font-weight: 700; color: var(--white); }
+    .stat-icon-wrap { width: 100px; height: 80px; background: var(--white); border-radius: 10px; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+    .stat-icon-wrap img { width: 100%; height: 100%; object-fit: contain; padding: 4px; }
+    .stat-number { font-size: clamp(1.6rem,4vw,2rem); font-weight: 800; color: var(--white); }
     .stat-label { font-size: 0.85rem; color: rgba(255,255,255,0.7); text-align: center; }
 
+    .freebook-section { background: var(--navy); border-top: 4px solid rgba(255,255,255,0.4); padding: clamp(48px,6vw,64px) 24px; }
+    .freebook-inner { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 32px; text-align: center; }
+    @media (min-width: 768px) { .freebook-inner { flex-direction: row; justify-content: space-between; text-align: left; } }
+    .freebook-inner h2 { font-size: clamp(1.5rem,3vw,2rem); font-weight: 700; color: var(--white); margin-bottom: 10px; }
+    .freebook-inner h2 span { color: var(--orange); }
+    .freebook-inner p { color: rgba(255,255,255,0.7); font-size: 0.95rem; margin-bottom: 20px; max-width: 420px; }
+    .free-book-img { flex-shrink: 0; width: 340px; filter: drop-shadow(-10px 14px 28px rgba(0,0,0,0.45)); }
+    @media (max-width: 640px) { .free-book-img { width: 240px; } }
+    .btn-wa { display: inline-flex; align-items: center; gap: 8px; background: var(--orange); color: var(--white); font-weight: 700; font-size: 0.9rem; padding: 12px 28px; border-radius: 8px; border: none; cursor: pointer; font-family: var(--font); transition: background 0.2s, transform 0.2s; }
+    .btn-wa:hover { background: #c96b18; transform: translateY(-2px); }
+    .btn-wa svg { width: 18px; height: 18px; fill: var(--white); }
 
-    /* FREE BOOK */
-    .free-book { background: var(--navy); padding: 56px 24px; border-top: 2px solid rgba(255,255,255,0.2); }
-    .free-book-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 40px; }
-    .free-book-text h2 { font-family: var(--font); font-size: clamp(1.5rem, 2.5vw, 2rem); color: var(--white); font-weight: 700; margin-bottom: 8px; }
-    .free-book-text h2 .accent { color: var(--orange); }
-    .free-book-text p { color: rgba(255,255,255,0.7); font-size: 0.95rem; margin-bottom: 24px; line-height: 1.6; }
-    .free-book-img { flex-shrink: 0; width: 340px; }
-    .free-book-img img { filter: drop-shadow(-10px 14px 28px rgba(0,0,0,0.45)); }
+    .ws-hero { position: relative; min-height: 420px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .ws-hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .ws-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(13,31,60,0.7), rgba(13,31,60,0.55), rgba(13,31,60,0.75)); }
+    .ws-hero-content { position: relative; z-index: 2; text-align: center; padding: 64px 24px; max-width: 760px; margin: 0 auto; }
+    .ws-hero-content h1 { font-size: clamp(2.4rem,5vw,3.2rem); font-weight: 700; color: var(--white); margin-bottom: 16px; }
+    .ws-hero-content h1 span { color: var(--orange); }
+    .ws-hero-content p { color: rgba(255,255,255,0.9); font-size: 1rem; max-width: 640px; margin: 0 auto; line-height: 1.7; }
 
-    /* POPUP */
-    .popup-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 9998; display: flex; align-items: center; justify-content: center; padding: 16px; opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
-    .popup-overlay.active { opacity: 1; visibility: visible; }
-    .popup-box { background: var(--white); border-radius: 16px; padding: 36px 32px; width: 100%; max-width: 420px; position: relative; }
-    .popup-close { position: absolute; top: 14px; right: 16px; background: none; border: none; font-size: 1.4rem; color: var(--text-light); cursor: pointer; line-height: 1; }
-    .popup-box h3 { font-family: var(--font); font-size: 1.6rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
-    .popup-box p { font-size: 0.9rem; color: var(--text-light); margin-bottom: 24px; }
-    .popup-form label { display: block; font-size: 0.9rem; font-weight: 600; color: var(--text); margin-bottom: 6px; }
-    .popup-form input { width: 100%; border: 1.5px solid var(--border); border-radius: var(--radius); padding: 10px 14px; font-size: 0.95rem; font-family: var(--font); outline: none; margin-bottom: 16px; }
-    .popup-form input:focus { border-color: var(--orange); }
-    .popup-success { text-align: center; padding: 24px 0; font-size: 1.1rem; color: var(--navy); font-weight: 600; }
+    .tabs { background: var(--white); padding: 32px 24px; border-bottom: 1px solid var(--border); }
+    .tabs-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (min-width: 768px) { .tabs-inner { display: flex; flex-wrap: wrap; justify-content: center; } }
+    .tab { padding: 10px 16px; border-radius: 8px; border: 2px solid var(--orange); font-weight: 600; font-size: 0.78rem; background: var(--white); color: var(--orange); transition: all 0.2s; font-family: var(--font); cursor: pointer; text-align: center; }
+    @media (min-width: 768px) { .tab { font-size: 0.9rem; padding: 10px 20px; } }
+    .tab:hover { background: rgba(224,120,32,0.1); }
+    .tab.active { background: var(--orange); color: var(--white); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
 
-    /* FOOTER */
+    .ws-main { background: var(--bg-gray); padding: 64px 24px; }
+    .ws-main-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 40px; }
+    @media (min-width: 1024px) { .ws-main-inner { grid-template-columns: 2fr 1fr; gap: 48px; align-items: start; } }
+    .ws-media { width: 100%; aspect-ratio: 16/9; border-radius: 16px; overflow: hidden; box-shadow: 0 12px 40px rgba(0,0,0,0.18); object-fit: cover; }
+    .ws-media.video { background: #000; }
+    .ws-content h2 { font-size: clamp(1.6rem,3.5vw,2.1rem); font-weight: 700; color: var(--text); margin: 32px 0 8px; }
+    .ws-content h2 span { color: var(--orange); }
+    .ws-sub { font-size: 0.8rem; font-weight: 600; color: rgba(0,0,0,0.6); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 20px; }
+    .ws-content p { color: var(--text); font-size: 0.95rem; line-height: 1.75; margin-bottom: 16px; }
+    .sidebar { display: flex; flex-direction: column; gap: 24px; }
+    .card { border-radius: 16px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+    .card-host { background: var(--white); border: 2px solid var(--orange); }
+    .card-sponsor { background: #eef4fb; border: 2px solid var(--navy-deep); }
+    .card h3 { font-size: 1.25rem; font-weight: 700; color: var(--text); margin-bottom: 16px; }
+    .card ul { list-style: none; margin-bottom: 20px; }
+    .card ul li { display: flex; align-items: center; gap: 12px; font-size: 0.92rem; color: var(--text); margin-bottom: 12px; }
+    .card ul li::before { content: ''; width: 10px; height: 10px; border-radius: 50%; background: var(--orange); flex-shrink: 0; }
+    .card p { font-size: 0.9rem; color: rgba(0,0,0,0.8); line-height: 1.65; margin-bottom: 20px; }
+    .btn-full { width: 100%; color: var(--white); font-weight: 700; font-size: 0.9rem; padding: 12px; border-radius: 8px; font-family: var(--font); cursor: pointer; border: none; transition: background 0.2s; }
+    .btn-full.orange { background: var(--orange); }
+    .btn-full.orange:hover { background: #c96b18; }
+    .btn-full.navy { background: var(--navy-deep); }
+    .btn-full.navy:hover { background: #0a3a6b; }
+
+    .walk { padding: 64px 24px; }
+    .walk-inner { max-width: 1100px; margin: 0 auto; position: relative; border-radius: 24px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.25); }
+    .walk-bg { width: 100%; height: 560px; object-fit: cover; }
+    .walk-overlay { position: absolute; top: 0; right: 0; height: 100%; width: 100%; background: rgba(59, 103, 155, 0.55); padding: 24px; display: flex; flex-direction: column; justify-content: center; color: var(--white); overflow-y: auto; }
+    @media (min-width: 768px) { .walk-overlay { width: 48%; background: rgba(59, 103, 155, 0.86); padding: 40px; } }
+    .walk-overlay h3 { font-size: 1.8rem; font-weight: 700; margin-bottom: 16px; }
+    .walk-overlay h3 span { color: var(--orange); }
+    .walk-overlay p { font-size: 0.88rem; line-height: 1.7; margin-bottom: 12px; }
+    .walk-overlay p .accent { color: var(--orange); font-weight: 600; }
+
+    .ws-cta { background: var(--navy-deep); padding: 64px 24px; text-align: center; }
+    .ws-cta-inner { max-width: 700px; margin: 0 auto; }
+    .ws-cta h2 { font-size: clamp(1.8rem,4vw,2.4rem); font-weight: 700; color: var(--white); margin-bottom: 16px; }
+    .ws-cta p { color: rgba(255,255,255,0.85); font-size: 1rem; line-height: 1.7; margin-bottom: 28px; }
+
+    .about-hero { position: relative; min-height: 320px; display: flex; align-items: center; justify-content: center; overflow: hidden; background: var(--navy); }
+    .about-hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.4; }
+    .about-hero-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(13,31,60,0.8), rgba(26,58,107,0.6), rgba(13,31,60,0.85)); }
+    .about-hero-content { position: relative; z-index: 2; text-align: center; padding: 48px 24px; }
+    .about-hero-content h1 { font-size: clamp(2.2rem,5vw,3rem); font-weight: 700; color: var(--white); margin-bottom: 16px; }
+    .about-hero-content h1 span { color: var(--orange); }
+    .about-hero-content p { color: rgba(255,255,255,0.9); font-size: 1rem; max-width: 640px; margin: 0 auto; line-height: 1.7; }
+
+    .about-main { background: var(--white); padding: clamp(56px,8vw,80px) 24px; }
+    .about-main .container { max-width: 1100px; margin: 0 auto; }
+    .about-main-inner { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: start; }
+    @media (min-width: 768px) { .about-main-inner { grid-template-columns: 1fr 1fr; gap: 56px; } }
+    .about-img-wrap { position: relative; }
+    .about-img-box { border-radius: 16px; overflow: hidden; box-shadow: 0 12px 40px rgba(0,0,0,0.18); }
+    .about-img-box img { width: 100%; height: 420px; object-fit: cover; }
+    .badge-countries { position: absolute; bottom: 20px; right: 20px; background: var(--orange); color: var(--white); padding: 12px 20px; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.2); text-align: center; }
+    .badge-countries .num { font-weight: 700; font-size: 1.5rem; line-height: 1; }
+    .badge-countries .lbl { font-size: 0.75rem; margin-top: 4px; }
+    .about-text h2 { font-size: clamp(1.6rem,3.5vw,2.1rem); font-weight: 700; color: #000; margin-bottom: 20px; line-height: 1.3; }
+    .about-text .quote { color: var(--orange); font-style: italic; font-size: 1.25rem; margin-bottom: 20px; line-height: 1.6; }
+    .about-text p { color: #000; font-size: 0.95rem; line-height: 1.75; margin-bottom: 16px; }
+    .about-body { margin-top: 40px; }
+    .about-body p { color: #000; font-size: 0.95rem; line-height: 1.75; margin-bottom: 16px; }
+    .signature { font-style: italic; font-size: 1.5rem; color: #000; text-align: right; margin-top: 24px; }
+
+    .about-testimonials { background: var(--navy); padding: clamp(56px,8vw,80px) 24px; }
+    .about-testimonials h2 { text-align: center; font-size: clamp(1.8rem,4vw,2.4rem); font-weight: 700; color: var(--white); margin-bottom: 40px; }
+    .about-testimonials h2 span { color: var(--orange); }
+
+    .about-faq { background: var(--white); padding: clamp(56px,8vw,80px) 24px; }
+    .about-faq-inner { max-width: 760px; margin: 0 auto; }
+    .about-faq h2 { text-align: left; font-size: clamp(1.8rem,4vw,2.4rem); font-weight: 700; color: #000; margin-bottom: 36px; }
+
+    .about-volunteer { background: var(--navy); padding: clamp(56px,8vw,80px) 24px; }
+    .about-volunteer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; }
+    @media (min-width: 768px) { .about-volunteer-inner { grid-template-columns: 1fr 1fr; gap: 56px; } }
+    .about-volunteer h2 { font-size: clamp(1.8rem,4vw,2.4rem); font-weight: 700; color: var(--white); margin-bottom: 16px; }
+    .about-volunteer h2 span { color: var(--orange); }
+    .about-volunteer p { color: rgba(255,255,255,0.85); font-size: 0.95rem; max-width: 620px; margin: 0 0 24px; line-height: 1.7; }
+    .volunteer-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .v-img { border-radius: 12px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.2); transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; }
+    .v-img:hover { transform: translateY(-8px); box-shadow: 0 20px 56px rgba(0,0,0,0.4); }
+    .v-img img { width: 100%; height: 176px; object-fit: cover; }
+    .mobile-only { display: block; }
+    @media (min-width: 768px) { .mobile-only { display: none; } }
+
+    .blog-hero { background: var(--navy); padding: 64px 24px; text-align: center; }
+    .blog-hero h1 { font-size: clamp(2rem,4vw,2.8rem); font-weight: 700; color: var(--white); margin-bottom: 12px; }
+    .blog-hero h1 span { color: var(--orange); }
+    .blog-hero p { color: rgba(255,255,255,0.8); font-size: 1rem; max-width: 600px; margin: 0 auto; }
+    .blog-list { background: var(--white); padding: 64px 24px; }
+    .blog-list-inner { max-width: 1100px; margin: 0 auto; }
+    .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+    .blog-card { background: var(--white); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; }
+    .blog-card:hover { transform: translateY(-6px); box-shadow: 0 12px 36px rgba(0,0,0,0.12); }
+    .blog-card img { width: 100%; height: 200px; object-fit: cover; }
+    .blog-card-body { padding: 20px; }
+    .blog-card-category { color: var(--orange); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 8px; }
+    .blog-card h3 { font-size: 1.2rem; font-weight: 700; color: var(--text); margin-bottom: 10px; line-height: 1.4; }
+    .blog-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 14px; }
+    .blog-card-meta { font-size: 0.8rem; color: var(--text-muted); }
+
+    .popup-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 16px; }
+    .popup-backdrop.open { display: flex; }
+    .popup-box { background: var(--white); border-radius: 18px; box-shadow: 0 24px 80px rgba(0,0,0,0.3); width: 100%; max-width: 440px; padding: 36px; position: relative; }
+    .popup-close { position: absolute; top: 14px; right: 14px; background: none; border: none; font-size: 1.4rem; color: #888; cursor: pointer; line-height: 1; }
+    .popup-title { font-size: 1.5rem; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .popup-sub { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 24px; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 0.9rem; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+    .form-group input { width: 100%; border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; font-size: 0.9rem; font-family: var(--font); outline: none; transition: border-color 0.2s; }
+    .form-group input:focus { border-color: var(--orange); box-shadow: 0 0 0 2px rgba(224,120,32,0.15); }
+
+    /* FOOTER - WHITE */
     footer { background: var(--white); border-top: 1px solid var(--border); padding: 56px 24px 24px; }
-    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; gap: 48px; margin-bottom: 40px; flex-wrap: wrap; }
-    .footer-brand { flex: 0 0 260px; }
-    .footer-brand p { font-size: 0.9rem; color: var(--text-light); line-height: 1.7; margin: 12px 0 16px; }
-    .footer-links-group { flex: 1; display: flex; gap: 40px; flex-wrap: wrap; }
-    .footer-col h4 { font-weight: 700; font-size: 1rem; color: var(--text); margin-bottom: 14px; }
-    .footer-col ul li { margin-bottom: 8px; }
-    .footer-col ul li a, .footer-col .contact-item { font-size: 0.9rem; color: var(--text-light); transition: color 0.2s; display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px; }
-    .footer-col ul li a:hover { color: var(--orange); }
-    .footer-col .icon { color: var(--orange); flex-shrink: 0; margin-top: 2px; }
-    .social-links { display: flex; gap: 10px; }
-    .social-link { width: 36px; height: 36px; border-radius: 50%; background: var(--navy); display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
-    .social-link:hover { background: var(--orange); }
-    .footer-bottom { max-width: 1100px; margin: 0 auto; border-top: 1px solid var(--border); padding-top: 18px; display: flex; justify-content: space-between; font-size: 0.82rem; color: var(--text-light); flex-wrap: wrap; gap: 6px; }
-
-    /* RESPONSIVE */
-    @media (max-width: 1024px) { .cards-grid { grid-template-columns: repeat(2, 1fr); } .stats-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 768px) {
-      .nav-links { display: none; } .hamburger { display: flex; }
-      .hero-content { padding: 56px 24px; }
-      .two-col-info { grid-template-columns: 1fr; }
-      .cards-grid { grid-template-columns: repeat(2, 1fr); }
-      .allies-inner { flex-direction: column; gap: 32px; }
-      .allies-text { flex: unset; width: 100%; }
-      .free-book-inner { flex-direction: column; text-align: center; align-items: center; }
-      .footer-inner { flex-direction: column; gap: 32px; }
-      .footer-brand { flex: unset; }
-      .footer-links-group { gap: 24px; }
-    }
-    @media (max-width: 480px) {
-      .cards-grid { grid-template-columns: 1fr; }
-      .allies-grid { grid-template-columns: repeat(4, 1fr); gap: 10px; }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
-    }
+    .footer-top { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 36px; margin-bottom: 36px; }
+    @media (min-width: 768px) { .footer-top { flex-direction: row; justify-content: space-between; } }
+    .footer-brand { max-width: 280px; }
+    .footer-logo { height: 48px; width: auto; margin-bottom: 12px; }
+    .footer-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 18px; }
+    .footer-socials { display: flex; gap: 10px; }
+    .footer-socials a { width: 36px; height: 36px; border-radius: 50%; background: var(--navy); display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+    .footer-socials a:hover { background: var(--orange); }
+    .footer-socials svg { width: 14px; height: 14px; }
+    .footer-links { display: flex; gap: 40px; justify-content: flex-start; flex-wrap: wrap; flex: 1; }
+    @media (min-width: 768px) { .footer-links { justify-content: flex-end; } }
+    .footer-col h4 { font-size: 0.85rem; font-weight: 700; color: var(--text); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.04em; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .footer-col li button { background: none; border: none; color: var(--text-muted); font-size: 0.9rem; font-family: var(--font); cursor: pointer; transition: color 0.2s; padding: 0; text-align: left; }
+    .footer-col li button:hover { color: var(--orange); }
+    .footer-col .contact-row { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 10px; }
+    .footer-col .contact-row svg { flex-shrink: 0; margin-top: 2px; }
+    .footer-col .contact-row span { font-size: 0.9rem; color: var(--text-muted); }
+    .footer-bottom { max-width: 1100px; margin: 0 auto; border-top: 1px solid var(--border); padding-top: 18px; }
+    .footer-bottom-row { width: 100%; display: flex; flex-wrap: wrap; justify-content: flex-start; align-items: flex-start; gap: 12px; }
+    @media (min-width: 640px) { .footer-bottom-row { justify-content: space-between; align-items: center; } }
+    .footer-bottom span { font-size: 0.8rem; color: var(--text-muted); }
+    .footer-watermark { display: inline-block; background: var(--navy); color: white; font-size: 0.85rem; font-weight: 600; padding: 8px 20px; border-radius: 8px; transition: background 0.2s; text-decoration: none; }
+    .footer-watermark:hover { background: var(--orange); }
   </style>
 </head>
 <body>
 
 <!-- LOADER -->
-<div id="page-loader">
-  <div class="loader-inner">
-    <div>
-      <span class="loader-word" style="animation-delay:0.1s">Seerah:</span>
-      <span class="loader-word accent" style="animation-delay:0.3s">Purpose,</span>
-      <span class="loader-word" style="animation-delay:0.5s">Transformation,</span>
-      <span class="loader-word" style="animation-delay:0.7s">and</span>
-      <span class="loader-word accent" style="animation-delay:0.9s">Excellence</span>
-    </div>
-    <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+<div id="loader">
+  <div class="loader-words">
+    <span class="loader-word">Seerah:</span>
+    <span class="loader-word accent">Purpose,</span>
+    <span class="loader-word">Transformation,</span>
+    <span class="loader-word">and</span>
+    <span class="loader-word accent">Excellence</span>
   </div>
+  <div class="loader-bar"></div>
 </div>
 
-<!-- NAVBAR -->
-<nav class="navbar">
-  <div class="nav-inner">
-    <a href="#" onclick="showPage('home'); return false;">
-      <img src="https://media.base44.com/images/public/user_69ebc1ad80cf1dd7c89a2680/8429de664_logo-light.png" alt="Seerah One" style="height:44px;width:auto;" />
-    </a>
-    <ul class="nav-links">
-      <li><a href="#" onclick="showPage('home'); return false;" id="nav-home">Home</a></li>
-      <li><a href="#" onclick="showPage('about'); return false;" id="nav-about">About</a></li>
-      <li><a href="#" onclick="showPage('events'); return false;" id="nav-events">Events</a></li>
-      <li><a href="#">Contact</a></li>
-    </ul>
-    <button class="hamburger" onclick="toggleMobile()"><span></span><span></span><span></span></button>
-  </div>
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="#" onclick="showPage('home'); toggleMobile(); return false;">Home</a>
-    <a href="#" onclick="showPage('about'); toggleMobile(); return false;">About</a>
-    <a href="#" onclick="showPage('events'); toggleMobile(); return false;">Events</a>
-    <a href="#">Contact</a>
-  </div>
+<!-- NAV -->
+<nav>
+  <button class="nav-logo" onclick="goPage('home')"><img src="https://media.base44.com/images/public/user_69ebc1ad80cf1dd7c89a2680/8429de664_logo-light.png" alt="Seerah One" /></button>
+  <ul class="nav-links" id="navLinks">
+    <li><button data-page="home" onclick="goPage('home')">Home</button></li>
+    <li><button data-page="about" onclick="goPage('about')">About</button></li>
+    <li><button data-page="workshops" onclick="goPage('workshops')">Workshops</button></li>
+    <li><button data-page="blog" onclick="goPage('blog')">Blog</button></li>
+  </ul>
+  <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- HOME PAGE -->
+<!-- ===================== HOME PAGE ===================== -->
 <div id="page-home" class="page active">
-
-  <!-- HERO -->
-  <section class="hero">
-    <video class="hero-video" autoplay muted loop playsinline>
+  <div class="hero" id="home">
+    <video autoplay muted loop playsinline poster="https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/2efc77f8b_generated_b6425ac2.png">
       <source src="https://media.base44.com/videos/public/user_6a196feb77ab703cf2d9fe35/2a919f27d_seerah-video.mp4" type="video/mp4" />
     </video>
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <h1>
-        <span class="line1"><span style="color:var(--orange)">Seerah</span>: The Roadmap for</span>
-        <span class="line2">Defining <span style="color:var(--orange)">Purpose</span></span>
-        <span class="line3">and Delivering <span style="color:var(--orange)">Excellence</span></span>
+        <span style="display:block"><span style="color:var(--orange)">Seerah</span>: The Roadmap for</span>
+        <span style="display:block">Defining <span style="color:var(--orange)">Purpose</span></span>
+        <span style="display:block">and Delivering <span style="color:var(--orange)">Excellence</span></span>
       </h1>
       <p>Our workshops are designed to help individuals pause, reflect, and uncover the purpose, to realign actions toward seeking the pleasure of Allah. With Niyyah (intention), progressing towards an understanding of Taqwa (God-consciousness), and leading the way to Ihsan (excellence) in every aspect of life.</p>
-      <a href="#" class="btn-primary" onclick="showPage('events'); return false;">What we do</a>
+      <button class="btn-orange" onclick="document.getElementById('events').scrollIntoView({behavior:'smooth'})">What we do</button>
     </div>
-  </section>
+  </div>
 
-  <!-- QUOTE -->
-  <section class="quote-section">
-    <p class="quote-text">
-      Say, O Prophet, <span class="highlight">"If you sincerely"</span> love Allah, then follow me; Allah will love you and forgive your sins. For Allah is All-Forgiving, Most Merciful.
-    </p>
-    <p class="quote-source">[ Quran (3:31) ]</p>
-  </section>
+  <div class="quote-section">
+    <p class="main-quote">Say, O Prophet, <span class="accent">"If you sincerely"</span> love Allah, then follow me; Allah will love you and forgive your sins. For Allah is All-Forgiving, Most Merciful.</p>
+    <p class="ref">[ Quran (3:31) ]</p>
+  </div>
 
-  <!-- TWO COL: Images + Text -->
-  <section class="two-col-info">
-    <div class="images-flex" id="imagesContainer">
-      <div class="img-panel">
-        <img src="https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/d1a879ea8_image.png" alt="Kaaba" />
+  <div class="what-section">
+    <div class="what-inner">
+      <div class="images-flex" id="imagesFlex">
+        <div class="img-panel"><img src="https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/d1a879ea8_image.png" alt="Kaaba" /></div>
+        <div class="img-panel"><img src="https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/767622bde_image.png" alt="Madina" /></div>
       </div>
-      <div class="img-panel">
-        <img src="https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/767622bde_image.png" alt="Madina" />
+      <div class="what-text">
+        <p>Applying the Sunnah of the Prophet (ﷺ) in our lives opens the doors to shaping how we think, act, speak, and live. We turn these inspirational moments into a framework to realign our goals to discover our destination. When the Seerah becomes a habit, our purpose becomes clear and the journey becomes meaningful and rewarding. Enabling us to truly experience Ihsan.</p>
+        <button class="btn-orange" onclick="document.getElementById('events').scrollIntoView({behavior:'smooth'})">What we do</button>
       </div>
     </div>
-    <div class="info-text">
-      <p>Applying the Sunnah of the Prophet (ﷺ) in our lives opens the doors to shaping how we think, act, speak, and live. We turn these inspirational moments into a framework to realign our goals to discover our destination. When the Seerah becomes a habit, our purpose becomes clear and the journey becomes meaningful and rewarding. Enabling us to truly experience Ihsan.</p>
-      <div><a href="#" class="btn-primary" onclick="showPage('events'); return false;">What we do</a></div>
-    </div>
-  </section>
+  </div>
 
-  <!-- WORKSHOP INSIGHTS -->
-  <section class="navy-section">
-    <div class="section-header">
-      <h2>Workshop <span class="accent">Insights</span></h2>
-      <p>Our workshops are designed to be interactive, reflective, and deeply personal. Participants are encouraged to explore, question, and grow, unlike traditional lectures.  Each session combines storytelling, group discussions, and personal reflections. We don't just tell you about the Prophet ( ﷺ ) we help you walk in his footsteps.</p>
-    </div>
-    <div class="cards-grid">
-      <div class="card">
-        <div class="card-img"><img src="https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/1e5ae187f_1000192075.png" alt="Why Learn" /></div>
-        <div class="card-body">
-          <h3>Why Learn the Seerah?</h3>
-          <p>Seerah is not an option but an obligation for every Muslim. Allah chose the Quran as our guidance and the Prophet (ﷺ) as our guide. His life is the roadmap that shapes our destiny.</p>
-          <span class="card-cta">Learn more →</span>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-img"><img src="https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/4d152b206_10001920761.png" alt="Rabb ko Razi" /></div>
-        <div class="card-body">
-          <h3>Rabb ko Razi Karo</h3>
-          <p>If my last 24 hours were livestream, would it earn Allah's pleasure or His anger? Real clarity comes from asking the hard questions. You can't replay, but you can Reboot.</p>
-          <span class="card-cta">Dive deeper →</span>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-img"><img src="https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/10be3f2ec_1000192079.png" alt="Seerah Explorer" /></div>
-        <div class="card-body">
-          <h3>Seerah Explorer</h3>
-          <p>This is a reflections led session to learn the Seerah and live by example of the Prophet's (ﷺ) life. Beyond the stories. Start living the experience and reclaim the legacy.</p>
-          <span class="card-cta">Start Exploring →</span>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-img"><img src="https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/7e2dfd755_1000192078.jpg" alt="Seerah Retreat" /></div>
-        <div class="card-body">
-          <h3>Seerah Retreat</h3>
-          <p>In a noisy chaotic world, the Seerah is your anchor. Find meaning and purpose through the Prophet's (ﷺ) life. Reflect to fix responsibility and enhance accountability.</p>
-          <span class="card-cta">Begin the journey →</span>
-        </div>
-      </div>
-    </div>
-    <div class="center-btn"><a href="#" class="btn-primary" style="padding:16px 48px;font-size:1.1rem;" onclick="showPage('events'); return false;">Get Started</a></div>
-  </section>
+  <div class="insights-section" id="events">
+    <h2>Workshop <span>Insights</span></h2>
+    <p class="sub">Our workshops are designed to be interactive, reflective, and deeply personal. Unlike traditional lectures, where participants can explore, question, and grow. Each session combines storytelling, group discussions, and personal reflection exercises. We don't just tell you about the Prophet (ﷺ) we help you walk in his footsteps.</p>
+    <div class="cards-grid" id="insightsGrid"></div>
+    <div class="insights-cta"><button class="btn-orange" onclick="goPage('workshops')">Get Started</button></div>
+  </div>
 
-  <!-- OUR ALLIES -->
-  <section class="allies-section">
+  <div class="allies-section">
     <div class="allies-inner">
       <div class="allies-text">
-        <h2>Our <span class="accent">Allies</span></h2>
-        <p>
-We truly appreciate our partners, the Schools and NGO’s. That gives us strength, encouragement, and hope in this journey. Every opportunity you have given us has helped us grow, do more meaningful work, with sincerity and hope. The Masajids have a special place in our heart; you welcomed us with open arms, with your warmth, trust and generosity.
-</p>
-
-
-
-
-        
-<p>
-May Allah reward you abundantly in this world and the next, and place lasting barakah in all that you do. Aameen.
-</p>
+        <h2>Our <span>Allies</span></h2>
+        <p>We truly appreciate our partners, the Schools and NGO's. That gives us strength, encouragement, and hope in this journey. Every opportunity you have given us has helped us grow, do more meaningful work, with sincerity and hope. The Masajids have a special place in our heart; you welcomed us with open arms, with your warmth, trust and generosity.<br><br><em>May Allah reward you abundantly in this world and the next, and place lasting barakah in all that you do. Aameen.</em></p>
       </div>
-      <div class="allies-grid-wrap">
-        <div class="allies-grid" id="alliesGrid"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- VOICES OF THE MOVEMENT -->
-  <section class="navy-section">
-    <div class="section-header">
-      <h2>Voices of the <span class="accent">movement</span></h2>
-    </div>
-    <div class="cards-grid">
-      <div class="voice-card">
-        <div class="voice-quote-open">&#8220;</div>
-        <p class="voice-text">I am 48 years old, and despite having access to many books, I regret not reading about the most noble man to ever walk this earth. Alhamdulillah, this book kept me engaged until the very end, taking me through major events, roles, and invaluable lessons</p>
-        <div class="voice-quote-close">&#8221;</div>
-        <div class="voice-author">
-          <img class="voice-avatar" src="https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/6a6ee381d_image.png" alt="Ameen e Mudassar" />
-          <div><div class="voice-name">Ameen e Mudassar</div><div class="voice-role">CIGMA Bangalore, India</div></div>
-        </div>
-      </div>
-      <div class="voice-card">
-        <div class="voice-quote-open">&#8220;</div>
-        <p class="voice-text">This book on Seerah (SAWS) — An Exemplar of Love, Humility and Compassion — is unique. It is crafted for youngsters and teens, speaking to them in their vocabulary. It beautifully presents the life of the Prophet (SAWS) in 63 topics. A must for all schools and homes.</p>
-        <div class="voice-quote-close">&#8221;</div>
-        <div class="voice-author">
-          <img class="voice-avatar" src="https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/fe0cf737b_image.png" alt="Amer Ali" />
-          <div><div class="voice-name">Amer Ali</div><div class="voice-role">Director Shaheen College, Nizaambad. India</div></div>
-        </div>
-      </div>
-      <div class="voice-card">
-        <div class="voice-quote-open">&#8220;</div>
-        <p class="voice-text">Every page feels purposeful, illuminating not just the principles of Islam, but the profound wisdom that underpins them. A masterpiece that is as enriching for lifelong students of the faith as it is for those seeking to understand it for the first time.</p>
-        <div class="voice-quote-close">&#8221;</div>
-        <div class="voice-author">
-          <img class="voice-avatar" src="https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/86bf58204_image.png" alt="Reyaz Shaik" />
-          <div><div class="voice-name">Reyaz Shaik</div><div class="voice-role">President XIT Solutions, USA</div></div>
-        </div>
-      </div>
-      <div class="voice-card">
-        <div class="voice-quote-open">&#8220;</div>
-        <p class="voice-text">The book is divided into chapters, each focusing on key lessons from the Prophet's (ﷺ) life. What makes it stand out is the interactive style, every chapter ends with multiple-choice questions, which really helps in reflecting and remembering the message.</p>
-        <div class="voice-quote-close">&#8221;</div>
-        <div class="voice-author">
-          <img class="voice-avatar" src="https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/84070722b_image.png" alt="Sagir Ahmed" />
-          <div><div class="voice-name">Sagir Ahmed</div><div class="voice-role">Rightway Scholars Institute, Gujrat, India</div></div>
-        </div>
-      </div>
-    </div>
-    <div class="center-btn" style="margin-top:0;"><a href="#" class="btn-primary" style="padding:14px 44px;font-size:1.1rem;" onclick="showPage('events'); return false;">Get Started</a></div>
-  </section>
-
-  <!-- WHY CHOOSE OUR EVENTS -->
-  <section class="why-choose">
-    <h2>Why choose our <span class="accent">events</span>?</h2>
-    <p>Our Seerah workshop approach is proactive: a dynamic journey of self-reflection, assessment, and responsibility. It's not passive lectures; it's interactive workshops where you design working models and solutions for personal transformation, growth, and real-world impact.</p>
-    <div class="accordion-item open">
-      <div class="accordion-header" onclick="toggleAccordion(this)">Why to attend?<span class="accordion-icon">&#8964;</span></div>
-      <div class="accordion-body">To awaken the curious mind, reconnect it with the Seerah, unlocking clarity, and purpose that leads to a real paradigm shift in how we think, live, and lead.</div>
-    </div>
-    <div class="accordion-item">
-      <div class="accordion-header" onclick="toggleAccordion(this)">What do I get?<span class="accordion-icon">&#8964;</span></div>
-      <div class="accordion-body">You gain a proven Seerah-based framework for self-leadership, clarity of purpose, practical tools for daily life, and a community of growth-minded individuals.</div>
-    </div>
-    <div class="accordion-item">
-      <div class="accordion-header" onclick="toggleAccordion(this)">How different is your approach?<span class="accordion-icon">&#8964;</span></div>
-      <div class="accordion-body">We don't teach history — we extract wisdom. Every session is designed to challenge you, connect you with the Prophet's (ﷺ) journey, and help you design your next best step.</div>
-    </div>
-  </section>
-
-  <!-- BARAKAH STATS -->
-  <section class="stats-section">
-  <h2 class="stats-title">This is what <span>Barakah</span> looks like</h2>
-  <div class="stats-grid">
-    <div class="stat-item">
-      <div class="stat-icon-wrap"><img src="https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/9152510e7_image.png" alt="Countries Reached" /></div>
-      <div class="stat-number" data-target="29">29+</div>
-      <div class="stat-label">Countries Reached</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-icon-wrap"><img src="https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/6a65bbf41_image.png" alt="Partnered Schools" /></div>
-      <div class="stat-number" data-target="10">10+</div>
-      <div class="stat-label">Partnered Schools</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-icon-wrap"><img src="https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/db3f25b2f_image.png" alt="Workshops" /></div>
-      <div class="stat-number" data-target="50">50+</div>
-      <div class="stat-label">Workshops</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-icon-wrap"><img src="https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/532517a44_image.png" alt="Readers" /></div>
-      <div class="stat-number" data-target="10000">10000+</div>
-      <div class="stat-label">Readers</div>
+      <div class="allies-box"><div class="allies-grid" id="alliesGrid"></div></div>
     </div>
   </div>
-</section>
 
-  <!-- FREE BOOK -->
-  <section class="free-book">
-    <div class="free-book-inner">
-      <div class="free-book-text">
-        <h2>Get your <span class="accent">Free Book</span> Here</h2>
+  <div class="voices-section">
+    <h2 class="voices-title">Voices of the <span>movement</span></h2>
+    <div class="voices-grid" id="voicesGrid"></div>
+    <div class="voices-cta"><button class="btn-orange">Get Started</button></div>
+  </div>
+
+  <div class="why-section">
+    <div class="why-inner">
+      <h2>Why choose our <span>events</span> ?</h2>
+      <p>Our Seerah workshop approach is proactive: a dynamic journey of self-reflection, assessment, and responsibility. Its not passive lectures; its interactive workshops where you design working models and solutions for personal transformation, growth, and real-world impact. Join us. Shape your best self.</p>
+      <div id="whyFaq"></div>
+    </div>
+  </div>
+
+  <div class="stats-section">
+    <h2 class="stats-title">This is what <span>Barakah</span> looks like</h2>
+    <div class="stats-grid" id="statsGrid"></div>
+  </div>
+
+  <div class="freebook-section">
+    <div class="freebook-inner">
+      <div>
+        <h2>Get your <span>Free Book</span> Here</h2>
         <p>Open to youth and adults seeking a practical, inspiring study of the Seerah.</p>
-        <button class="btn-primary" onclick="openBookPopup()">Download now</button>
+        <button class="btn-wa" onclick="waRedirect('Assalamualaikum, I am looking forward to a soft copy of the Seerah book. JazakAllah Khair.')">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+          Download now
+        </button>
       </div>
-      <div class="free-book-img">
-        <img src="https://media.base44.com/images/public/user_6a196feb77ab703cf2d9fe35/d2a72d843_Seerah0004FreeSoftcoverBook.png" alt="Free Book" />
-      </div>
-    </div>
-  </section>
-
-</div><!-- /home -->
-
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <a href="#" onclick="showPage('home'); return false;">
-        <img src="https://media.base44.com/images/public/user_69ebc1ad80cf1dd7c89a2680/f0aead134_logo-dark.png" alt="Seerah One" style="height:48px;width:auto;" />
-      </a>
-      <p>Discover the profound legacy of Prophet Muhammad (pbuh) and gain inspiration for a meaningful life.</p>
-      <div class="social-links">
-        <a href="#" class="social-link" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="white" width="14" height="14"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
-        <a href="#" class="social-link" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
-        <a href="#" class="social-link" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="white" width="14" height="14"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#1a3a6b"/></svg></a>
-      </div>
-    </div>
-    <div class="footer-links-group">
-      <div class="footer-col">
-        <h4>Quick Links</h4>
-        <ul>
-          <li><a href="#" onclick="showPage('home'); return false;">Home</a></li>
-          <li><a href="#" onclick="showPage('about'); return false;">About</a></li>
-          <li><a href="#" onclick="showPage('events'); return false;">Events</a></li>
-          <li><a href="#">Gallery</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Helpful Links</h4>
-        <ul>
-          <li><a href="#">Terms &amp; Conditions</a></li>
-          <li><a href="#">Privacy Policy</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Contact Us</h4>
-        <div class="contact-item"><span class="icon">✉</span><span>yunus@seerah.one</span></div>
-        <div class="contact-item"><span class="icon">💬</span><span>Just a message away</span></div>
-      </div>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>© 2026 Seerah One. All rights reserved.</span>
-    <span>Transforming lives through the teachings of the Prophet Muhammad (ﷺ)</span>
-  </div>
-  <div style="text-align:center;margin-top:14px;font-size:0.75rem;color:rgba(0,0,0,0.3);">
-    Developed by <a href="https://www.faizcodex.com" target="_blank" rel="noopener noreferrer" style="color:inherit;transition:color 0.2s;" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color='inherit'">faizcodex.com</a>
-  </div>
-</footer>
-
-<!-- BOOK POPUP -->
-<div class="popup-overlay" id="bookPopup">
-  <div class="popup-box">
-    <button class="popup-close" onclick="closeBookPopup()">✕</button>
-    <h3>Get your Free Book</h3>
-    <p>Enter your details to receive the download link.</p>
-    <div id="popupContent">
-      <div class="popup-form">
-        <label>Email Address</label>
-        <input type="email" id="popupEmail" placeholder="your@email.com" required />
-        <label>Mobile Number</label>
-        <input type="tel" id="popupPhone" placeholder="+1 234 567 8900" required />
-        <button class="btn-primary" style="width:100%;text-align:center;" onclick="submitBookForm()">Download Free Book</button>
-      </div>
+      <div><img class="free-book-img" src="https://media.base44.com/images/public/user_6a196feb77ab703cf2d9fe35/d2a72d843_Seerah0004FreeSoftcoverBook.png" alt="Free Book" /></div>
     </div>
   </div>
 </div>
 
+<!-- ===================== ABOUT PAGE ===================== -->
+<div id="page-about" class="page">
+  <div class="about-hero">
+    <img class="about-hero-bg" src="https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/9b907e95f_image.png" alt="Dome interior" />
+    <div class="about-hero-overlay"></div>
+    <div class="about-hero-content">
+      <h1>About <span>us</span></h1>
+      <p>Sira 1 workshops, help individuals pause, reflect, uncover purpose and relying their actions towards seeking pleasure of Allah.</p>
+    </div>
+  </div>
+
+  <div class="about-main">
+    <div class="container">
+      <div class="about-main-inner">
+        <div class="about-img-wrap">
+          <div class="about-img-box"><img src="https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/d8f9e7d89_image.png" alt="Mohammad Yunus" /></div>
+          <div class="badge-countries"><div class="num">29+</div><div class="lbl">Countries</div></div>
+        </div>
+        <div class="about-text">
+          <h2>We hope to deliver more than your expectation</h2>
+          <p class="quote">"When a servant takes one step toward Me, I take ten steps toward them. If they walk toward me, I run toward them."</p>
+          <p>The Seerah One movement is a living testament to this Hadith. What started as a small, personal initiative to write a book on the Seerah of Rasulullah for my pre-teen daughter has evolved into a global movement impacting lives across the world.</p>
+          <p>When I printed the first 500 copies, I was not even sure if I would be able to sell them. Today, Alhumdulillah, we have sold five editions and over 10,000 copies in just three years.</p>
+        </div>
+      </div>
+      <div class="about-body">
+        <p>The struggles along the way were real. Rejection, doubt, and mockery were all part of this journey. However, just as the life of Rasulullah teaches us resilience, I have been able to put those challenges behind me and press forward.</p>
+        <p>Despite the obstacles, I am humbled by the steadily increasing support from the Ulema, which continues to encourage us. Masjids have opened their doors for our lectures and workshops, cutting across different schools of thought. More than 10 schools across four major cities in India have now adopted the book for their high school students.</p>
+        <p>Furthermore, volunteers have stepped forward to translate the book into different languages. These volunteers have played a monumental role in our journey, taking ownership and working sincerely to drive this movement forward. Alongside them, a steady stream of well-wishers, friends, and most importantly, my family, has stood firmly by me.</p>
+        <p>Whenever I am called to deliver a lecture, I know from the bottom of my heart that this success is nothing but the Barakah and blessing of Allah. May Allah reward everyone who has supported, encouraged, and made Duas for us on this momentous journey.</p>
+        <p class="signature">Mohammad Yunus.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-testimonials">
+    <h2>The <span>Seerah</span> effect</h2>
+    <div class="voices-grid" id="aboutVoicesGrid"></div>
+  </div>
+
+  <div class="about-faq">
+    <div class="about-faq-inner">
+      <h2>FAQ's</h2>
+      <div id="aboutFaq"></div>
+    </div>
+  </div>
+
+  <div class="about-volunteer">
+    <div class="about-volunteer-inner">
+      <div>
+        <h2>Seerah One <br class="mobile-only"><span>Volunteer Team</span></h2>
+        <p>Join the SEERAH.ONE Volunteer Team and be part of a community passionate about sharing the life of the Prophet Muhammad ﷺ. Whether you are a student, a professional, or simply someone who loves to learn and share knowledge, we welcome you to join us in our mission to spread the message of Seerah.</p>
+        <button class="btn-orange" onclick="openVolunteerPopup()">Join Seerah One</button>
+      </div>
+      <div class="volunteer-grid" id="volunteerGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== WORKSHOPS PAGE ===================== -->
+<div id="page-workshops" class="page">
+  <div class="ws-hero">
+    <img class="ws-hero-bg" src="https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/0266d6aeb_image.png" alt="Prophet's Mosque" />
+    <div class="ws-hero-overlay"></div>
+    <div class="ws-hero-content">
+      <h1>Work<span>shops</span></h1>
+      <p>Our workshops are designed to be interactive, reflective, and deeply personal. Participants are encouraged to explore, question, and grow, unlike traditional lectures. Each session combines storytelling, group discussions, and personal reflections.</p>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <div class="tabs-inner" id="tabsInner"></div>
+  </div>
+
+  <div class="ws-main">
+    <div class="ws-main-inner">
+      <div class="ws-content">
+        <div id="wsMedia"></div>
+        <h2 id="wsHeading"></h2>
+        <div class="ws-sub">Event Overview</div>
+        <div id="wsParagraphs"></div>
+      </div>
+      <div class="sidebar">
+        <div class="card card-host">
+          <h3>Host a workshop</h3>
+          <ul><li>Masjids &amp; NGOs</li><li>Schools / Colleges</li><li>Family events</li><li>Curated events</li></ul>
+          <button class="btn-full orange" onclick="waRedirect('Assalamualaikum, I am looking to host a Seerah workshop. I would love to know more about bringing a session to our community.')">Reach out now</button>
+        </div>
+        <div class="card card-sponsor">
+          <h3>Sponsor a workshop</h3>
+          <p>Empower underprivileged students and teachers with the knowledge of Seerah. Act now for Sadqah Jariyah.</p>
+          <button class="btn-full navy" onclick="waRedirect('Assalamualaikum, I am looking to sponsor a Seerah workshop to empower underprivileged students and teachers. I would love to know more about how I can contribute for Sadqah Jariyah.')">Sponsor a workshop</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="walk">
+    <div class="walk-inner">
+      <img class="walk-bg" src="https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/1089f464c_image.png" alt="Seerah Walk collage" />
+      <div class="walk-overlay">
+        <h3><span>Seerah</span> Walk</h3>
+        <p>Start your Saturday with a thoughtful and energising walk, jog, or run at your own pace, depending on your age, pace or mood.</p>
+        <p>We meet every Saturday morning at <span class="accent">History Deccan Park</span>, with the stunning <span class="accent">16th-century 7 Tombs</span> and its 200-acre historic landscape as our backdrop.</p>
+        <p>For about <span class="accent">45 minutes</span>, we move together a few in quiet <span class="accent">zikr</span>, some in relaxed conversation about everyday life, and others discussing the pressing political or economic issues of the day.</p>
+        <p>After the walk, we gather under a tree, sit down, and unwind with a short, uplifting story from the <span class="accent">Seerah</span> or the lives of the <span class="accent">Sahaba</span>. Nothing heavy — just a simple, meaningful conversation for about <span class="accent">15 minutes</span>.</p>
+        <p>Then we head back home, refreshed and ready to enjoy the rest of the weekend. A walk for the body. A pause for the heart. A story for the soul.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="ws-cta">
+    <div class="ws-cta-inner">
+      <h2>Let's Get Moving Today</h2>
+      <p>Join the Seerah Walk this Saturday or bring a workshop to your community. Be part of a movement that nurtures the body, the heart, and the soul.</p>
+      <button class="btn-orange">Join Now</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== BLOG PAGE ===================== -->
+<div id="page-blog" class="page">
+  <div class="blog-hero">
+    <h1>Seerah <span>Blog</span></h1>
+    <p>Reflections, insights, and stories from the Seerah One movement.</p>
+  </div>
+  <div class="blog-list">
+    <div class="blog-list-inner">
+      <div class="blog-grid" id="blogGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== FOOTER (WHITE) ===================== -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <img class="footer-logo" src="https://media.base44.com/images/public/user_69ebc1ad80cf1dd7c89a2680/f0aead134_logo-dark.png" alt="Seerah One" />
+      <p class="footer-desc">Discover the profound legacy of Prophet Muhammad (pbuh) and gain inspiration for a meaningful life.</p>
+      <div class="footer-socials">
+        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="white"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#1a3a6b"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.063 2.063 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+        <a href="https://wa.me/919980018253" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><button onclick="goPage('home')">Home</button></li>
+          <li><button onclick="goPage('about')">About</button></li>
+          <li><button onclick="goPage('workshops')">Workshops</button></li>
+          <li><button onclick="goPage('blog')">Blog</button></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <div class="contact-row"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span>yunus@seerah.one</span></div>
+        <div class="contact-row"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Just a message away</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-bottom-row">
+      <span>© 2026 Seerah One. All rights reserved.</span>
+      <a href="https://www.faizcodex.com" target="_blank" rel="noopener noreferrer" class="footer-watermark">Developed by faizcodex.com</a>
+      <span>Transforming lives through the teachings of the Prophet Muhammad (ﷺ)</span>
+    </div>
+  </div>
+</footer>
+
+<!-- VOLUNTEER POPUP -->
+<div class="popup-backdrop" id="volunteerPopup">
+  <div class="popup-box">
+    <button class="popup-close" onclick="closeVolunteerPopup()">&times;</button>
+    <h3 class="popup-title">Join Seerah One</h3>
+    <p class="popup-sub">Enter your name and we'll connect you on WhatsApp to get started.</p>
+    <form onsubmit="submitVolunteer(event)">
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" id="volunteerName" placeholder="Enter your full name" required />
+      </div>
+      <button type="submit" class="btn-wa" style="width:100%;justify-content:center;padding:14px;">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+        Continue on WhatsApp
+      </button>
+    </form>
+  </div>
+</div>
+
 <script>
-  // CONFIG — replace with your actual values
-  var GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbyGf6VcitFnL990XNxSFnTHzwbHsHcHtsAX12o83qKpIveHE3d45SVtHvoiQ9jXfohRog/exec';
-  var BOOK_URL = 'https://drive.google.com/file/d/15hANnjaZMXTTSprAmF71NU0mwGz_rvMh/view';
+var WHATSAPP_NUMBER = '919980018253';
+var currentVideo = null;
 
-  // PAGE NAVIGATION
-  function showPage(name) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById('page-' + name)?.classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-  function toggleMobile() {
-    document.getElementById('mobileMenu').classList.toggle('open');
-  }
-
-  // ACCORDION
-  function toggleAccordion(header) {
-    var item = header.parentElement;
-    var isOpen = item.classList.contains('open');
-    item.parentElement.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('open'));
-    if (!isOpen) item.classList.add('open');
-  }
-
-  // BOOK POPUP
-  function openBookPopup() {
-    document.getElementById('bookPopup').classList.add('active');
-  }
-  function closeBookPopup() {
-    document.getElementById('bookPopup').classList.remove('active');
-    document.getElementById('popupContent').innerHTML = `<div class="popup-form">
-      <label>Email Address</label><input type="email" id="popupEmail" placeholder="your@email.com" required />
-      <label>Mobile Number</label><input type="tel" id="popupPhone" placeholder="+1 234 567 8900" required />
-      <button class="btn-primary" style="width:100%;text-align:center;" onclick="submitBookForm()">Download Free Book</button>
-    </div>`;
-  }
-  document.getElementById('bookPopup').addEventListener('click', function(e) {
-    if (e.target === this) closeBookPopup();
-  });
-  function submitBookForm() {
-    var email = document.getElementById('popupEmail')?.value;
-    var phone = document.getElementById('popupPhone')?.value;
-    if (!email || !phone) { alert('Please fill in both fields.'); return; }
-    // Send to Google Sheet (fire and forget)
-    fetch(GOOGLE_SHEET_URL, {
-      method: 'POST', mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: email, phone: phone, timestamp: new Date().toISOString() })
-    }).catch(function() {});
-    document.getElementById('popupContent').innerHTML = '<div class="popup-success">✓ Opening your book now...</div>';
-    setTimeout(function() { window.open(BOOK_URL, '_blank'); closeBookPopup(); }, 900);
-  }
-
-  // ALLIES GRID (12 circles)
-  var ALLY_LOGOS = [
-    { src: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/5181a6008_image.png', alt: 'Reyan High School' },
-    { src: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/422591cc0_image.png', alt: 'Akshara Model High School' },
-    { src: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/f281ea43c_image.png', alt: 'Scholar HopeCrop' },
-    { src: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/1cc884c9a_image.png', alt: 'Miles 2 Smile' },
-    { src: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/d95a54dbb_image.png', alt: 'Zikra High School Hyderabad' },
-    { src: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/2a49eb976_psflogo.png', alt: 'PSF' },
-    { src: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/f932105b9_siologo.png', alt: 'SIO Telangana' },
-    { src: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/d1b490d2f_THMS.jpg', alt: 'The Hyderabad Millennium School' },
-    { src: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/bf0c8cd4d_1000200951.png', alt: 'MountCrest Academy' },
-    { src: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/72c06fbda_1000200952.png', alt: 'Al-Falah High School' },
-    { src: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/5181a6008_image.png', alt: 'Reyan High School' },
-    { src: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/422591cc0_image.png', alt: 'Akshara Model High School' },
-  ];
-  window.addEventListener('DOMContentLoaded', function() {
-    var grid = document.getElementById('alliesGrid');
-    if (grid) {
-      ALLY_LOGOS.forEach(function(ally) {
-        var div = document.createElement('div');
-        div.className = 'ally-circle';
-        var img = document.createElement('img');
-        img.src = ally.src; img.alt = ally.alt;
-        img.style.cssText = 'width:100%;height:100%;object-fit:cover;';
-        div.appendChild(img);
-        grid.appendChild(div);
-      });
+// ===== LOADER =====
+window.addEventListener('load', function() {
+  setTimeout(function() {
+    var l = document.getElementById('loader');
+    if (l) {
+      l.style.opacity = '0';
+      setTimeout(function() { l.style.display = 'none'; }, 600);
     }
-  });
+  }, 2800);
+});
 
-  // LOADER
-  window.addEventListener('load', function() { setTimeout(function() {
-    var l = document.getElementById('page-loader');
-    if (l) l.classList.add('hidden');
-  }, 2800); });
+// ===== PAGE ROUTING =====
+function goPage(page) {
+  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+  var el = document.getElementById('page-' + page);
+  if (el) el.classList.add('active');
+  document.querySelectorAll('.nav-links button').forEach(function(b) {
+    b.classList.toggle('active', b.getAttribute('data-page') === page);
+  });
+  document.getElementById('navLinks').classList.remove('open');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ===== WHATSAPP =====
+function waRedirect(message) {
+  window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message), '_blank');
+}
+
+// ===== VOLUNTEER POPUP =====
+function openVolunteerPopup() { document.getElementById('volunteerPopup').classList.add('open'); }
+function closeVolunteerPopup() {
+  document.getElementById('volunteerPopup').classList.remove('open');
+  document.getElementById('volunteerName').value = '';
+}
+function submitVolunteer(e) {
+  e.preventDefault();
+  var name = document.getElementById('volunteerName').value || '[Your Name]';
+  var msg = "Assalamualaikum, my name is " + name + ". I am looking to volunteer for Seerah. I would love to be part of the Seerah One movement and help share the life of the Prophet Muhammad ﷺ.";
+  waRedirect(msg);
+  closeVolunteerPopup();
+}
+document.getElementById('volunteerPopup').addEventListener('click', function(e) { if (e.target === this) closeVolunteerPopup(); });
+
+// ===== WORKSHOP INSIGHTS CARDS =====
+var INSIGHTS = [
+  { title: 'Why Learn the Seerah?', desc: "Seerah is not an option but an obligation for every Muslim. Allah chose the Quran as our guidance and the Prophet (ﷺ) as our guide. His life is the roadmap that shapes our destiny.", cta: 'Learn more', tab: 'Why Learn the Seerah?', img: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/1e5ae187f_1000192075.png' },
+  { title: 'Rabb ko Razi Karo', desc: "If my last 24 hours were livestream, would it earn Allah's pleasure or His anger? Real clarity comes from asking the hard questions. You can't replay, but you can Reboot.", cta: 'Dive deeper', tab: 'Rabb ko Razi Karo', img: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/4d152b206_10001920761.png' },
+  { title: 'Seerah Explorer', desc: "This is a reflections led session to learn the Seerah and live by example of the Prophet's (ﷺ) life. Beyond the stories. Start living the experience and reclaim the legacy.", cta: 'Start Exploring', tab: 'Seerah Explorer', img: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/10be3f2ec_1000192079.png' },
+  { title: 'Seerah Retreat', desc: "In a noisy chaotic world, the Seerah is your anchor. Find meaning and purpose through the Prophet's (ﷺ) life. Reflect to fix responsibility, enhance accountability.", cta: 'Begin the journey', tab: 'Seerah Retreat', img: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/7e2dfd755_1000192078.jpg' },
+];
+document.getElementById('insightsGrid').innerHTML = INSIGHTS.map(function(w) {
+  return '<a class="insight-card" onclick="goToWorkshopTab(\'' + w.tab.replace(/'/g, "\\'") + '\')"><div class="card-img"><img src="' + w.img + '" alt="' + w.title + '"/></div><div class="card-body"><h3>' + w.title + '</h3><p>' + w.desc + '</p><span class="cta">' + w.cta + ' →</span></div></a>';
+}).join('');
+
+function goToWorkshopTab(tab) {
+  goPage('workshops');
+  setActiveTab(tab);
+}
+
+// ===== ALLIES =====
+var ALLIES = [
+  {src:'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/5181a6008_image.png',alt:'Reyan High School'},
+  {src:'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/422591cc0_image.png',alt:'Akshara School'},
+  {src:'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/f281ea43c_image.png',alt:'Scholar HopeCrop'},
+  {src:'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/1cc884c9a_image.png',alt:'Miles 2 Smile'},
+  {src:'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/d95a54dbb_image.png',alt:'Zikra High School'},
+  {src:'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/2a49eb976_psflogo.png',alt:'PSF'},
+  {src:'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/f932105b9_siologo.png',alt:'SIO Telangana'},
+  {src:'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/d1b490d2f_THMS.jpg',alt:'Hyderabad Millennium School'},
+  {src:'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/bf0c8cd4d_1000200951.png',alt:'MountCrest Academy'},
+  {src:'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/72c06fbda_1000200952.png',alt:'Al-Falah High School'},
+  {src:'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/704163c6f_ChatGPTImageMay30202601_11_30PM.png',alt:'We Care English School'},
+  {src:'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/73d427d07_ChatGPTImageMay30202601_14_29PM.png',alt:'Terminate Hunger Organization'},
+];
+document.getElementById('alliesGrid').innerHTML = ALLIES.map(function(a) {
+  return '<div class="ally-circle"><img src="' + a.src + '" alt="' + a.alt + '"/></div>';
+}).join('');
+
+// ===== VOICES (Home - 4 new testimonials) =====
+var VOICES = [
+  { text: "The workshop helped me connect the Quran and Hadith with everyday life in a practical way. It made me reflect on small actions we often ignore, like cleanliness, honesty, and avoiding bribery. The Seerah-based examples stayed with me and influenced my decisions even after the session.", name: 'Hafiz Muhammad Al-Tamash', role: 'Bangalore', avatar: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/260b8a9dd_image.png' },
+  { text: "This workshop is for everyone—even if you only pray Jummah. If you feel a bit lost, it helps you find that connection. Plus, it's a lot of fun with great food, and definitely not a boring, preachy session! It genuinely connected with me and made me reflect deeply.", name: 'Syed Ayman', role: 'Deloitte - Chennai', avatar: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/49ba71631_image.png' },
+  { text: "This workshop beautifully connected faith with everyday life. 'Rab Ko Razi Karo' inspired me to become more mindful of my intentions, actions, and responsibilities. The practical guidance and meaningful discussions made it a transformative and memorable experience.", name: 'Azhar Mohideen', role: 'Founder CEO - BioReform', avatar: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/cf28ce494_image.png' },
+  { text: "Seerah one brought the Prophet's (ﷺ) character to life. Now, in every problem, I ask, 'What would Nabi ﷺ do?' Alhamdulillah for the engaging lessons that transformed my perspective and love for the Prophet (ﷺ).", name: 'Shoaib Khan', role: 'Founder - Hyderabad Hustlers', avatar: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/9621bcd23_image.png' },
+];
+function voicesHTML() {
+  return VOICES.map(function(v) {
+    return '<div class="voice-card"><div class="voice-quote-open">“</div><p class="voice-text">' + v.text + '</p><div class="voice-quote-close">”</div><div class="voice-footer"><img class="voice-avatar" src="' + v.avatar + '" alt="' + v.name + '"/><div><div class="voice-name">' + v.name + '</div><div class="voice-role">' + v.role + '</div></div></div></div>';
+  }).join('');
+}
+document.getElementById('voicesGrid').innerHTML = voicesHTML();
+
+// ===== ABOUT TESTIMONIALS (Seerah effect - original 4) =====
+var ABOUT_VOICES = [
+  { text: "I am 48 years old, and despite having access to many books, I regret not reading about the most noble man to ever walk this earth. Alhamdulillah, this book kept me engaged until the very end, taking me through major events, roles, and invaluable lessons", name: 'Ameen e Mudassar', role: 'CIGMA Bangalore, India', avatar: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/6a6ee381d_image.png' },
+  { text: "This book on Seerah (SAWS) &mdash; An Exemplar of Love, Humility and Compassion &mdash; is unique. It is crafted for youngsters and teens, speaking to them in their vocabulary. It beautifully presents the life of the Prophet (SAWS) in 63 topics, giving a complete understanding of his blessed life. A must for all schools and homes.", name: 'Amer Ali', role: 'Director Shaheen College, Nizaambad. India', avatar: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/fe0cf737b_image.png' },
+  { text: "&ldquo;Every page feels purposeful, illuminating not just the principles of Islam, but the profound wisdom that underpins them. A masterpiece that is as enriching for lifelong students of the faith as it is for those seeking to understand it for the first time.&rdquo;", name: 'Reyaz Shaik', role: 'President XIT Solutions, USA', avatar: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/86bf58204_image.png' },
+  { text: "The book is divided into chapters, each focusing on key lessons from the Prophet's (ﷺ) life. What makes it stand out is the interactive style, every chapter ends with multiple-choice questions, which really helps in reflecting and remembering the message.", name: 'Sagir Ahmed', role: 'Rightway Scholars Institute, Gujrat, India', avatar: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/84070722b_image.png' },
+];
+function aboutVoicesHTML() {
+  return ABOUT_VOICES.map(function(v) {
+    return '<div class="voice-card"><div class="voice-quote-open">&ldquo;</div><p class="voice-text">' + v.text + '</p><div class="voice-quote-close">&rdquo;</div><div class="voice-footer"><img class="voice-avatar" src="' + v.avatar + '" alt="' + v.name + '"/><div><div class="voice-name">' + v.name + '</div><div class="voice-role">' + v.role + '</div></div></div></div>';
+  }).join('');
+}
+document.getElementById('aboutVoicesGrid').innerHTML = aboutVoicesHTML();
+
+// ===== WHY CHOOSE FAQ =====
+var WHY_FAQ = [
+  { q: 'Why to attend?', a: 'To awaken the curious mind, reconnect it with the Seerah, unlocking clarity, and purpose that leads to a real paradigm shift in how we think, live, and lead.' },
+  { q: 'What do I get ?', a: 'You gain a proven Seerah-based framework for self-leadership, clarity of purpose, practical tools for daily life, and a community of growth-minded individuals.' },
+  { q: 'How different is your approach?', a: "We don't teach history — we extract wisdom. Every session is designed to challenge you, connect you with the Prophet's ﷺ journey, and help you design your next best step." },
+];
+function faqHTML(items) {
+  return items.map(function(item) {
+    return '<div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">' + item.q + ' <span class="faq-chevron">▾</span></button><div class="faq-answer"><div class="faq-answer-inner">' + item.a + '</div></div></div>';
+  }).join('');
+}
+document.getElementById('whyFaq').innerHTML = faqHTML(WHY_FAQ);
+
+// ===== ABOUT FAQ =====
+var ABOUT_FAQ = [
+  { q: 'Why to attend?', a: 'Our events combine deep scholarship with practical life application, making the Seerah relevant to modern challenges in career, relationships, and personal development.' },
+  { q: 'What do I get?', a: 'You gain clarity of purpose, a deeper connection with the Prophet (ﷺ), practical lessons for daily life, and a community of like-minded seekers.' },
+  { q: 'How different is your approach?', a: 'We blend traditional scholarship with interactive reflection — every session includes group discussion, Q&A, and exercises that connect the Seerah to your personal journey.' },
+  { q: 'How different is our approach?', a: 'Our approach is rooted in the Seerah as a living roadmap — not just history. We focus on Niyyah, Taqwa, and Ihsan as practical tools for excellence in everyday life.' },
+];
+document.getElementById('aboutFaq').innerHTML = faqHTML(ABOUT_FAQ);
+
+function toggleFaq(el) {
+  var ans = el.nextElementSibling;
+  var isOpen = ans.classList.contains('open');
+  document.querySelectorAll('.faq-answer.open').forEach(function(a) { a.classList.remove('open'); a.previousElementSibling.classList.remove('open'); });
+  if (!isOpen) { ans.classList.add('open'); el.classList.add('open'); }
+}
+
+// ===== BARAKAH STATS =====
+var STATS = [
+  { target: 29, suffix: '+', label: 'Countries Reached', icon: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/d0915a787_image.png' },
+  { target: 10, suffix: '+', label: 'Partnered Schools', icon: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/4197e1427_image.png' },
+  { target: 50, suffix: '+', label: 'Workshops', icon: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/161b33a99_image.png' },
+  { target: 10000, suffix: '+', label: 'Readers', icon: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/3069061d1_image.png' },
+];
+document.getElementById('statsGrid').innerHTML = STATS.map(function(s) {
+  return '<div class="stat-item"><div class="stat-icon-wrap"><img src="' + s.icon + '" alt="' + s.label + '"/></div><div class="stat-number" data-target="' + s.target + '">0' + s.suffix + '</div><div class="stat-label">' + s.label + '</div></div>';
+}).join('');
+
+function startCountUp() {
+  document.querySelectorAll('.stat-number[data-target]').forEach(function(el) {
+    var target = parseInt(el.getAttribute('data-target'));
+    var suffix = el.textContent.replace(/[0-9,]/g, '');
+    var duration = 2200, start = Date.now();
+    var timer = setInterval(function() {
+      var p = Math.min((Date.now() - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.floor(eased * target).toLocaleString() + suffix;
+      if (p >= 1) { el.textContent = target.toLocaleString() + suffix; clearInterval(timer); }
+    }, 16);
+  });
+}
+var statsObserver = new IntersectionObserver(function(entries) {
+  if (entries[0].isIntersecting) { startCountUp(); statsObserver.disconnect(); }
+}, { threshold: 0.3 });
+var statsSection = document.querySelector('.stats-section');
+if (statsSection) statsObserver.observe(statsSection);
+
+// ===== VOLUNTEER IMAGES =====
+var VOLUNTEER_IMAGES = [
+  {src:'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/c356d7aba_image.png',alt:'Volunteers discussion circle'},
+  {src:'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/81b8fa351_image.png',alt:'Two volunteers with book'},
+  {src:'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/d29e698ef_image.png',alt:'Group of volunteers'},
+  {src:'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/4c571a055_image.png',alt:'Three volunteers with banner'},
+];
+document.getElementById('volunteerGrid').innerHTML = VOLUNTEER_IMAGES.map(function(v) {
+  return '<div class="v-img"><img src="' + v.src + '" alt="' + v.alt + '"/></div>';
+}).join('');
+
+// ===== WORKSHOPS TABS + CONTENT =====
+var TAB_CONTENT = {
+  'Why Learn the Seerah?': {
+    heading: 'Why Learn the <span>Seerah?</span>',
+    media: '<img class="ws-media" src="https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/2eccb5cb1_image.png" alt="Why Learn the Seerah" />',
+    paragraphs: [
+      "Seerah is not an option but an obligation for every Muslim. Allah chose the Quran as our guidance and the Prophet (ﷺ) as our guide. His life is the roadmap that shapes our destiny. Let's begin this truly rewarding and transformative journey to know Him.",
+      "The Seerah is not merely a historic document or a biography of the greatest being that ever walked the face of the earth. He was sent as Rahmatul lil-Alameen (mercy to all the worlds). It's a life that's filled with simplicity, empathy, humility, love, compassion, foresight, strategy, and wisdom.",
+      "What stopped us from learning the Seerah? Instead of looking back as to why we've not explored His life let's say Bismillah to begin the exploration…",
+      "To follow the Deen sincerely, we must truly know the one we are asked to follow. Prophet (ﷺ) said: \u201CNone of you will have faith until he loves me more than his father, his children, and all mankind.\u201D (Sahih Bukhari, narrated by Anas ibn Malik)",
+      "Let's be honest, how can we love someone we don't know? Think about it, \u201CDo I love the Prophet (ﷺ) more than anything else in this world\u201D? For many of us, to answer this sincerely would be difficult not because of lack of belief, but because of not knowing him.",
+      "The obvious next question should be: Where do I begin learning the Seerah. Let's first understand his life, struggles, and challenges, realise the path he travelled and what made him so steadfast in his journey to bring the Deen to us.",
+      "At the end of this session, you will not only appreciate but won't hesitate to answer that question with confidence and sincerity, in an Affirmative. In sh\u0101' All\u0101h.",
+    ],
+  },
+  'Rabb ko Razi Karo': {
+    heading: 'Rabb ko Razi Karo',
+    media: '<img class="ws-media" src="https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/c5263c216_image.png" alt="Rabb ko Razi Karo" />',
+    paragraphs: [
+      "If my last 24 hours were livestream, would it earn Allah's pleasure or His anger? Real clarity comes from asking the hard questions. You can't replay, but you can Reboot.",
+      "Living in a world driven by consumerism. Whether we need something or not, we buy it because everyone else has it. From our childhood, we are trained to compete: come first in class, get into the best college, secure a high-paying job, find the \u201Cright\u201D spouse, and be considered settled. This is what success means for a lot of us.",
+      "But here is the real question: what makes the Deen different from everything else the world promotes and practices? If everyone is chasing the same targets: money, status, homes, cars, holidays then what sets a believer apart?",
+      "The difference lies in one small factor: does the way we live please our Rabb or not? Is what we earn halal? Is our lifestyle rooted in values or just validation?",
+      "Allah says: \u201CYou are the best community raised for humanity\u201D (Qur'an 3:110). If we truly believe this, then what should our priorities look like? What goals should we set? And how should the world see us as an Ummah?",
+      "Let us pause, reflect, and be truthful. Are we getting closer to our Rabb, or quietly drifting away? Come find out.",
+    ],
+  },
+  'Seerah Explorer': {
+    heading: 'Seerah <span>Explorer</span>',
+    media: 'video|https://media.base44.com/videos/public/6a19a598f6afa0561d5f727d/4ee2db5e9_WhatsAppVideo2026-06-21at25259PM.mp4|https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/4ea117dfe_image.png',
+    paragraphs: [
+      "This is a reflections led session to learn the Seerah and live by example of the Prophet's (ﷺ) life. Beyond the stories. Start living the experience and reclaim the legacy.",
+      "From childhood, we have all grown up hearing stories, Alhamdulillah! Some meaningful, some moral, and some simple tales meant to scare us into sleep. But pause for a moment and ask yourself: have we truly been told the story of the most important figure in human history? And if not, why?",
+      "Seerah is not just a story, but moments that allow us to experience a life so profound that it stays with us forever, compelling us to share it with generations to come. Because His (ﷺ) life was unlike any other.",
+      "The Prophet (ﷺ) was born after his father passed away, rejected by Halimah due to being fatherless, lost his mother at the age of six, and grew up as an orphan. Despite possessing unmatched character, honesty, and trustworthiness, his own people rejected him as a Prophet. He (ﷺ) was mocked, stoned for calling to the truth, and ultimately driven out of his beloved home.",
+      "Yet through patience, perseverance and prayers, He (ﷺ) established the Deen, returned to Makkah with mercy, and transformed the course of human history until the Day of Qiyamah.",
+      "As Allah says in the Qur'an: \u201CIndeed, in the Messenger of Allah you have an excellent example for whoever hopes in Allah and the Last Day.\u201D (33:21)",
+      "Let us cherish His (ﷺ) life and revive his Sunnah one step at a time.",
+    ],
+  },
+  'Seerah Retreat': {
+    heading: 'Seerah <span>Retreat</span>',
+    media: 'video|https://media.base44.com/videos/public/6a19a598f6afa0561d5f727d/e02366701_WhatsAppVideo2026-06-21at25237PM.mp4|https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/2e6f9dc9b_image.png',
+    paragraphs: [
+      "In a noisy chaotic world, the Seerah is your anchor. Find meaning and purpose through the Prophet's (ﷺ) life. Reflect to fix responsibility, enhance accountability, and set the standards of ethics and morality.",
+      "Any meaningful and lasting transformation begins by looking within. Muhasabah is true accountability, an honest assessment of whether our actions align with truth, uphold what is right, and restrain what is wrong. This reflection is easy to speak about, but difficult to practice.",
+      "So where do we begin? What path do we follow, and what methods truly bring inner change that reflects excellence?",
+      "Seerah is that resource with unparalleled wisdom for transformation, filled with clarity, practical reasoning, and lived experience. Yet, seldom transformation happens alone. This requires companionship, accountability, and sincere support much like a trusted companion who keeps you consistent and motivated.",
+      "\u201CNone of you shall be a true believer until he loves for his brother what he loves for himself.\u201D [Al-Bukhari] [Muslim]",
+      "The spirit of Mu'akhah (brotherhood) remains one of the most powerful forces ever witnessed in human history. We guide you to rediscover it not through lectures or advice, but through empathy, listening, and walking the journey together.",
+      "Come, Experience the true meaning of brotherhood.",
+    ],
+  },
+};
+
+var TABS = Object.keys(TAB_CONTENT);
+document.getElementById('tabsInner').innerHTML = TABS.map(function(t) {
+  return '<button class="tab" data-tab="' + t.replace(/"/g, '&quot;') + '" onclick="setActiveTab(\'' + t.replace(/'/g, "\\'") + '\')">' + t + '</button>';
+}).join('');
+
+function setActiveTab(tab) {
+  document.querySelectorAll('.tab').forEach(function(b) {
+    b.classList.toggle('active', b.getAttribute('data-tab') === tab);
+  });
+  var c = TAB_CONTENT[tab];
+  if (!c) return;
+
+  if (currentVideo) {
+    try { currentVideo.pause(); } catch(e) {}
+    currentVideo = null;
+  }
+
+  var mediaEl = document.getElementById('wsMedia');
+  var mediaStr = c.media;
+
+  if (mediaStr.indexOf('video|') === 0) {
+    var parts = mediaStr.split('|');
+    var src = parts[1];
+    var poster = parts[2];
+    mediaEl.innerHTML = '<video class="ws-media video" controls poster="' + poster + '"><source src="' + src + '" type="video/mp4" /></video>';
+    var vid = mediaEl.querySelector('video');
+    currentVideo = vid;
+    vid.addEventListener('loadedmetadata', function() {
+      vid.currentTime = 0;
+      vid.play().catch(function() {});
+    });
+    vid.addEventListener('ended', function() {
+      vid.pause();
+    });
+  } else {
+    mediaEl.innerHTML = mediaStr;
+  }
+
+  document.getElementById('wsHeading').innerHTML = c.heading;
+  document.getElementById('wsParagraphs').innerHTML = c.paragraphs.map(function(p) {
+    return '<p>' + p + '</p>';
+  }).join('');
+}
+setActiveTab('Why Learn the Seerah?');
+
+// ===== BLOG (sample posts) =====
+var BLOG_POSTS = [
+  { title: 'The Power of Niyyah', category: 'Reflections', excerpt: 'How intention transforms everyday actions into worship.', author: 'Mohammad Yunus', img: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/d1a879ea8_image.png', date: 'May 2026' },
+  { title: 'Lessons from the Hijrah', category: 'Seerah', excerpt: "What the Prophet's migration teaches us about resilience.", author: 'Mohammad Yunus', img: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/767622bde_image.png', date: 'May 2026' },
+  { title: 'Taqwa in Modern Life', category: 'Guidance', excerpt: 'Practical ways to cultivate God-consciousness daily.', author: 'Mohammad Yunus', img: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/1e5ae187f_1000192075.png', date: 'April 2026' },
+];
+document.getElementById('blogGrid').innerHTML = BLOG_POSTS.map(function(p) {
+  return '<div class="blog-card"><img src="' + p.img + '" alt="' + p.title + '"/><div class="blog-card-body"><div class="blog-card-category">' + p.category + '</div><h3>' + p.title + '</h3><p>' + p.excerpt + '</p><div class="blog-card-meta">' + p.author + ' • ' + p.date + '</div></div></div>';
+}).join('');
+
+// ===== SMOOTH SCROLL =====
+document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+  a.addEventListener('click', function(e) {
+    var id = this.getAttribute('href').slice(1);
+    var el = document.getElementById(id);
+    if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth' }); }
+  });
+});
 </script>
 </body>
 </html>
