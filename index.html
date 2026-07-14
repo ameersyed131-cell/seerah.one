@@ -53,7 +53,7 @@
     .nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
     .nav-toggle span { width: 24px; height: 2px; background: var(--white); border-radius: 2px; display: block; }
     @media (max-width: 768px) {
-      .nav-links { display: none; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: var(--navy); padding: 20px 24px; gap: 16px; }
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: var(--navy); padding: 20px !24px; gap: 16px; }
       .nav-links.open { display: flex; }
       .nav-toggle { display: flex; }
     }
@@ -303,7 +303,7 @@
     .form-group input { width: 100%; border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; font-size: 1.05rem; font-family: var(--font); outline: none; transition: border-color 0.2s; }
     .form-group input:focus { border-color: var(--orange); box-shadow: 0 0 0 2px rgba(224,120,32,0.15); }
 
-    /* FOOTER - WHITE */
+    /* FOOTER */
     footer { background: var(--white); border-top: 1px solid var(--border); padding: 56px 24px 24px; }
     .footer-top { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 36px; margin-bottom: 36px; }
     @media (min-width: 768px) { .footer-top { flex-direction: row; justify-content: space-between; } }
@@ -357,7 +357,7 @@
   <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- ===================== HOME PAGE ===================== -->
+<!-- HOME PAGE -->
 <div id="page-home" class="page active">
   <div class="hero" id="home">
     <video autoplay muted loop playsinline poster="https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/2efc77f8b_generated_b6425ac2.png">
@@ -444,7 +444,7 @@
   </div>
 </div>
 
-<!-- ===================== ABOUT PAGE ===================== -->
+<!-- ABOUT PAGE -->
 <div id="page-about" class="page">
   <div class="about-hero">
     <img class="about-hero-bg" src="https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/9b907e95f_image.png" alt="Dome interior" />
@@ -503,7 +503,7 @@
   </div>
 </div>
 
-<!-- ===================== WORKSHOPS PAGE ===================== -->
+<!-- WORKSHOPS PAGE -->
 <div id="page-workshops" class="page">
   <div class="ws-hero">
     <img class="ws-hero-bg" src="https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/0266d6aeb_image.png" alt="Prophet's Mosque" />
@@ -567,7 +567,7 @@
   </div>
 </div>
 
-<!-- ===================== BLOG PAGE ===================== -->
+<!-- BLOG PAGE -->
 <div id="page-blog" class="page">
   <div class="blog-hero">
     <h1>Seerah <span>Blog</span></h1>
@@ -580,7 +580,7 @@
   </div>
 </div>
 
-<!-- ===================== FOOTER (WHITE) ===================== -->
+<!-- FOOTER -->
 <footer>
   <div class="footer-top">
     <div class="footer-brand">
@@ -589,7 +589,7 @@
       <div class="footer-socials">
         <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="white"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#1a3a6b"/></svg></a>
         <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.063 2.063 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
-        <a href="https://wa.me/919980018253" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-!1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg></a>
+        <a href="https://wa.me/919980018253" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg></a>
       </div>
     </div>
     <div class="footer-links">
@@ -618,7 +618,7 @@
   </div>
 </footer>
 
-<!-- NAME POPUP (for all WhatsApp actions) -->
+<!-- NAME POPUP -->
 <div class="popup-backdrop" id="namePopup">
   <div class="popup-box">
     <button class="popup-close" onclick="closeNamePopup()">&times;</button>
@@ -642,18 +642,15 @@ var WHATSAPP_NUMBER = '919980018253';
 var pendingWaMessage = '';
 var activeTabName = 'Why Learn the Seerah?';
 
-// ===== LOADER (2 seconds) =====
+// LOADER (2 seconds)
 window.addEventListener('load', function() {
   setTimeout(function() {
     var l = document.getElementById('loader');
-    if (l) {
-      l.style.opacity = '0';
-      setTimeout(function() { l.style.display = 'none'; }, 300);
-    }
+    if (l) { l.style.opacity = '0'; setTimeout(function() { l.style.display = 'none'; }, 300); }
   }, 2000);
 });
 
-// ===== PAGE ROUTING =====
+// PAGE ROUTING
 function goPage(page) {
   document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
   var el = document.getElementById('page-' + page);
@@ -665,7 +662,7 @@ function goPage(page) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ===== NAME POPUP (for all WhatsApp actions) =====
+// NAME POPUP
 function openNamePopup(title, message) {
   pendingWaMessage = message;
   document.getElementById('namePopupTitle').textContent = title;
@@ -686,13 +683,13 @@ function submitNamePopup(e) {
 }
 document.getElementById('namePopup').addEventListener('click', function(e) { if (e.target === this) closeNamePopup(); });
 
-// ===== WORKSHOP ENQUIRE (name popup + workshop-specific WhatsApp message) =====
+// WORKSHOP ENQUIRE
 function enquireWorkshop() {
   var msg = 'My name is [NAME]. Kindly share how to enroll for ' + activeTabName + '. Venue details and upcoming dates.';
-  openNamePopup('Enquire — ' + activeTabName, msg);
+  openNamePopup('Enquire - ' + activeTabName, msg);
 }
 
-// ===== WORKSHOP INSIGHTS CARDS =====
+// WORKSHOP INSIGHTS
 var INSIGHTS = [
   { title: 'Why Learn the Seerah?', desc: "Seerah is not an option but an obligation for every Muslim. Allah chose the Quran as our guidance and the Prophet (ﷺ) as our guide. His life is the roadmap that shapes our destiny.", cta: 'Learn more', tab: 'Why Learn the Seerah?', img: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/1e5ae187f_1000192075.png' },
   { title: 'Rabb ko Razi Karo', desc: "If my last 24 hours were livestream, would it earn Allah's pleasure or His anger? Real clarity comes from asking the hard questions. You can't replay, but you can Reboot.", cta: 'Dive deeper', tab: 'Rabb ko Razi Karo', img: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/4d152b206_10001920761.png' },
@@ -700,15 +697,11 @@ var INSIGHTS = [
   { title: 'Seerah Retreat', desc: "In a noisy chaotic world, the Seerah is your anchor. Find meaning and purpose through the Prophet's (ﷺ) life. Reflect to fix responsibility, enhance accountability.", cta: 'Begin the journey', tab: 'Seerah Retreat', img: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/7e2dfd755_1000192078.jpg' },
 ];
 document.getElementById('insightsGrid').innerHTML = INSIGHTS.map(function(w) {
-  return '<a class="insight-card" onclick="goToWorkshopTab(\'' + w.tab.replace(/'/g, "\\'") + '\')"><div class="card-img"><img src="' + w.img + '" alt="' + w.title + '"/></div><div class="card-body"><h3>' + w.title + '</h3><p>' + w.desc + '</p><span class="cta">' + w.cta + ' →</span></div></a>';
+  return '<a class="insight-card" onclick="goToWorkshopTab(\'' + w.tab.replace(/'/g, "\\'") + '\')"><div class="card-img"><img src="' + w.img + '" alt="' + w.title + '"/></div><div class="card-body"><h3>' + w.title + '</h3><p>' + w.desc + '</p><span class="cta">' + w.cta + ' \u2192</span></div></a>';
 }).join('');
+function goToWorkshopTab(tab) { goPage('workshops'); setActiveTab(tab); }
 
-function goToWorkshopTab(tab) {
-  goPage('workshops');
-  setActiveTab(tab);
-}
-
-// ===== ALLIES =====
+// ALLIES
 var ALLIES = [
   {src:'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/5181a6008_image.png',alt:'Reyan High School'},
   {src:'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/422591cc0_image.png',alt:'Akshara School'},
@@ -727,53 +720,52 @@ document.getElementById('alliesGrid').innerHTML = ALLIES.map(function(a) {
   return '<div class="ally-circle"><img src="' + a.src + '" alt="' + a.alt + '"/></div>';
 }).join('');
 
-// ===== VOICES (Home - 4 testimonials) =====
+// VOICES
 var VOICES = [
   { text: "The workshop helped me connect the Quran and Hadith with everyday life in a practical way. It made me reflect on small actions we often ignore, like cleanliness, honesty, and avoiding bribery. The Seerah-based examples stayed with me and influenced my decisions even after the session.", name: 'Hafiz Muhammad Althamish', role: 'Bangalore', avatar: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/260b8a9dd_image.png' },
-  { text: "This workshop is for everyone—even if you only pray Jummah. If you feel a bit lost, it helps you find that connection. Plus, it's a lot of fun with great food, and definitely not a boring, preachy session! It genuinely connected with me and made me reflect deeply.", name: 'Syed Ayman', role: 'Deloitte - Chennai', avatar: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/49ba71631_image.png' },
+  { text: "This workshop is for everyone\u2014even if you only pray Jummah. If you feel a bit lost, it helps you find that connection. Plus, it's a lot of fun with great food, and definitely not a boring, preachy session! It genuinely connected with me and made me reflect deeply.", name: 'Syed Ayman', role: 'Deloitte - Chennai', avatar: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/49ba71631_image.png' },
   { text: "This workshop beautifully connected faith with everyday life. 'Rab Ko Razi Karo' inspired me to become more mindful of my intentions, actions, and responsibilities. The practical guidance and meaningful discussions made it a transformative and memorable experience.", name: 'Azhar Mohiuddin', role: 'Founder CEO - BioReform', avatar: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/cf28ce494_image.png' },
-  { text: "Seerah one brought the Prophet's (ﷺ) character to life. Now, in every problem, I ask, 'What would Nabi ﷺ do?' Alhamdulillah for the engaging lessons that transformed my perspective and love for the Prophet (ﷺ).", name: 'Shoaib Khan', role: 'Founder - Hyderabad Hustlers', avatar: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/9621bcd23_image.png' },
+  { text: "Seerah one brought the Prophet's (\ufd00) character to life. Now, in every problem, I ask, 'What would Nabi \ufd00 do?' Alhamdulillah for the engaging lessons that transformed my perspective and love for the Prophet (\ufd00).", name: 'Shoaib Khan', role: 'Founder - Hyderabad Hustlers', avatar: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/9621bcd23_image.png' },
 ];
 function voicesHTML() {
   return VOICES.map(function(v) {
-    return '<div class="voice-card"><div class="voice-quote-open">&ldquo;</div><p class="voice-text">' + v.text + '</p><div class="voice-quote-close">&rdquo;</div><div class="voice-footer"><img class="voice-avatar" src="' + v.avatar + '" alt="' + v.name + '"/><div><div class="voice-name">' + v.name + '</div><div class="voice-role">' + v.role + '</div></div></div></div>';
+    return '<div class="voice-card"><div class="voice-quote-open">\u201c</div><p class="voice-text">' + v.text + '</p><div class="voice-quote-close">\u201d</div><div class="voice-footer"><img class="voice-avatar" src="' + v.avatar + '" alt="' + v.name + '"/><div><div class="voice-name">' + v.name + '</div><div class="voice-role">' + v.role + '</div></div></div></div>';
   }).join('');
 }
 document.getElementById('voicesGrid').innerHTML = voicesHTML();
 
-// ===== ABOUT TESTIMONIALS (Seerah effect - original 4) =====
+// ABOUT TESTIMONIALS
 var ABOUT_VOICES = [
   { text: "I am 48 years old, and despite having access to many books, I regret not reading about the most noble man to ever walk this earth. Alhamdulillah, this book kept me engaged until the very end, taking me through major events, roles, and invaluable lessons", name: 'Ameen e Mudassar', role: 'CIGMA Bangalore, India', avatar: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/6a6ee381d_image.png' },
-  { text: "This book on Seerah (SAWS) &mdash; An Exemplar of Love, Humility and Compassion &mdash; is unique. It is crafted for youngsters and teens, speaking to them in their vocabulary. It beautifully presents the life of the Prophet (SAWS) in 63 topics, giving a complete understanding of his blessed life. A must for all schools and homes.", name: 'Amer Ali', role: 'Director Shaheen College, Nizaambad. India', avatar: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/fe0cf737b_image.png' },
-  { text: "&ldquo;Every page feels purposeful, illuminating not just the principles of Islam, but the profound wisdom that underpins them. A masterpiece that is as enriching for lifelong students of the faith as it is for those seeking to understand it for the first time.&rdquo;", name: 'Reyaz Shaik', role: 'President XIT Solutions, USA', avatar: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/86bf58204_image.png' },
-  { text: "The book is divided into chapters, each focusing on key lessons from the Prophet's (ﷺ) life. What makes it stand out is the interactive style, every chapter ends with multiple-choice questions, which really helps in reflecting and remembering the message.", name: 'Sagir Ahmed', role: 'Rightway Scholars Institute, Gujrat, India', avatar: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/84070722b_image.png' },
+  { text: "This book on Seerah (SAWS) \u2014 An Exemplar of Love, Humility and Compassion \u2014 is unique. It is crafted for youngsters and teens, speaking to them in their vocabulary. It beautifully presents the life of the Prophet (SAWS) in 63 topics, giving a complete understanding of his blessed life. A must for all schools and homes.", name: 'Amer Ali', role: 'Director Shaheen College, Nizaambad. India', avatar: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/fe0cf737b_image.png' },
+  { text: "\u201cEvery page feels purposeful, illuminating not just the principles of Islam, but the profound wisdom that underpins them. A masterpiece that is as enriching for lifelong students of the faith as it is for those seeking to understand it for the first time.\u201d", name: 'Reyaz Shaik', role: 'President XIT Solutions, USA', avatar: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/86bf58204_image.png' },
+  { text: "The book is divided into chapters, each focusing on key lessons from the Prophet's (\ufd00) life. What makes it stand out is the interactive style, every chapter ends with multiple-choice questions, which really helps in reflecting and remembering the message.", name: 'Sagir Ahmed', role: 'Rightway Scholars Institute, Gujrat, India', avatar: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/84070722b_image.png' },
 ];
 function aboutVoicesHTML() {
   return ABOUT_VOICES.map(function(v) {
-    return '<div class="voice-card"><div class="voice-quote-open">&ldquo;</div><p class="voice-text">' + v.text + '</p><div class="voice-quote-close">&rdquo;</div><div class="voice-footer"><img class="voice-avatar" src="' + v.avatar + '" alt="' + v.name + '"/><div><div class="voice-name">' + v.name + '</div><div class="voice-role">' + v.role + '</div></div></div></div>';
+    return '<div class="voice-card"><div class="voice-quote-open">\u201c</div><p class="voice-text">' + v.text + '</p><div class="voice-quote-close">\u201d</div><div class="voice-footer"><img class="voice-avatar" src="' + v.avatar + '" alt="' + v.name + '"/><div><div class="voice-name">' + v.name + '</div><div class="voice-role">' + v.role + '</div></div></div></div>';
   }).join('');
 }
 document.getElementById('aboutVoicesGrid').innerHTML = aboutVoicesHTML();
 
-// ===== WHY CHOOSE FAQ =====
+// FAQ
 var WHY_FAQ = [
   { q: 'Why to attend?', a: 'To awaken the curious mind, reconnect it with the Seerah, unlocking clarity, and purpose that leads to a real paradigm shift in how we think, live, and lead.' },
   { q: 'What do I get ?', a: 'You gain a proven Seerah-based framework for self-leadership, clarity of purpose, practical tools for daily life, and a community of growth-minded individuals.' },
-  { q: 'How different is your approach?', a: "We don't teach history — we extract wisdom. Every session is designed to challenge you, connect you with the Prophet's ﷺ journey, and help you design your next best step." },
+  { q: 'How different is your approach?', a: "We don't teach history \u2014 we extract wisdom. Every session is designed to challenge you, connect you with the Prophet's \ufd00 journey, and help you design your next best step." },
 ];
 function faqHTML(items) {
   return items.map(function(item) {
-    return '<div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">' + item.q + ' <span class="faq-chevron">▾</span></button><div class="faq-answer"><div class="faq-answer-inner">' + item.a + '</div></div></div>';
+    return '<div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">' + item.q + ' <span class="faq-chevron">\u25be</span></button><div class="faq-answer"><div class="faq-answer-inner">' + item.a + '</div></div></div>';
   }).join('');
 }
 document.getElementById('whyFaq').innerHTML = faqHTML(WHY_FAQ);
 
-// ===== ABOUT FAQ =====
 var ABOUT_FAQ = [
   { q: 'Why to attend?', a: 'Our events combine deep scholarship with practical life application, making the Seerah relevant to modern challenges in career, relationships, and personal development.' },
-  { q: 'What do I get?', a: 'You gain clarity of purpose, a deeper connection with the Prophet (ﷺ), practical lessons for daily life, and a community of like-minded seekers.' },
-  { q: 'How different is your approach?', a: 'We blend traditional scholarship with interactive reflection — every session includes group discussion, Q&A, and exercises that connect the Seerah to your personal journey.' },
-  { q: 'How different is our approach?', a: 'Our approach is rooted in the Seerah as a living roadmap — not just history. We focus on Niyyah, Taqwa, and Ihsan as practical tools for excellence in everyday life.' },
+  { q: 'What do I get?', a: 'You gain clarity of purpose, a deeper connection with the Prophet (\ufd00), practical lessons for daily life, and a community of like-minded seekers.' },
+  { q: 'How different is your approach?', a: 'We blend traditional scholarship with interactive reflection \u2014 every session includes group discussion, Q&A, and exercises that connect the Seerah to your personal journey.' },
+  { q: 'How different is our approach?', a: 'Our approach is rooted in the Seerah as a living roadmap \u2014 not just history. We focus on Niyyah, Taqwa, and Ihsan as practical tools for excellence in everyday life.' },
 ];
 document.getElementById('aboutFaq').innerHTML = faqHTML(ABOUT_FAQ);
 
@@ -784,7 +776,7 @@ function toggleFaq(el) {
   if (!isOpen) { ans.classList.add('open'); el.classList.add('open'); }
 }
 
-// ===== BARAKAH STATS (updated icons + numbers) =====
+// STATS
 var STATS = [
   { target: 32, suffix: '+', label: 'Countries Reached', icon: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/c4310eb2b_image.png' },
   { target: 10, suffix: '+', label: 'Partnered Schools', icon: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/648fe1004_image.png' },
@@ -794,7 +786,6 @@ var STATS = [
 document.getElementById('statsGrid').innerHTML = STATS.map(function(s) {
   return '<div class="stat-item"><div class="stat-icon-wrap"><img src="' + s.icon + '" alt="' + s.label + '"/></div><div class="stat-number" data-target="' + s.target + '">0' + s.suffix + '</div><div class="stat-label">' + s.label + '</div></div>';
 }).join('');
-
 function startCountUp() {
   document.querySelectorAll('.stat-number[data-target]').forEach(function(el) {
     var target = parseInt(el.getAttribute('data-target'));
@@ -814,7 +805,7 @@ var statsObserver = new IntersectionObserver(function(entries) {
 var statsSection = document.querySelector('.stats-section');
 if (statsSection) statsObserver.observe(statsSection);
 
-// ===== VOLUNTEER IMAGES (4 photos) =====
+// VOLUNTEER IMAGES
 var VOLUNTEER_IMAGES = [
   {src:'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/80b656503_image.png',alt:'Volunteers group photo'},
   {src:'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/0e5fb27fd_image.png',alt:'Volunteers with banner'},
@@ -825,17 +816,17 @@ document.getElementById('volunteerGrid').innerHTML = VOLUNTEER_IMAGES.map(functi
   return '<div class="v-img"><img src="' + v.src + '" alt="' + v.alt + '"/></div>';
 }).join('');
 
-// ===== WORKSHOPS TABS + CONTENT =====
+// WORKSHOPS TABS
 var TAB_CONTENT = {
   'Why Learn the Seerah?': {
     heading: 'Why Learn the <span>Seerah?</span>',
     media: '<img class="ws-media" src="https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/2eccb5cb1_image.png" alt="Why Learn the Seerah" />',
     paragraphs: [
-      "Seerah is not an option but an obligation for every Muslim. Allah chose the Quran as our guidance and the Prophet (ﷺ) as our guide. His life is the roadmap that shapes our destiny. Let's begin this truly rewarding and transformative journey to know Him.",
+      "Seerah is not an option but an obligation for every Muslim. Allah chose the Quran as our guidance and the Prophet (\ufd00) as our guide. His life is the roadmap that shapes our destiny. Let's begin this truly rewarding and transformative journey to know Him.",
       "The Seerah is not merely a historic document or a biography of the greatest being that ever walked the face of the earth. He was sent as Rahmatul lil-Alameen (mercy to all the worlds). It's a life that's filled with simplicity, empathy, humility, love, compassion, foresight, strategy, and wisdom.",
-      "What stopped us from learning the Seerah? Instead of looking back as to why we've not explored His life let's say Bismillah to begin the exploration…",
-      "To follow the Deen sincerely, we must truly know the one we are asked to follow. Prophet (ﷺ) said: \u201CNone of you will have faith until he loves me more than his father, his children, and all mankind.\u201D (Sahih Bukhari, narrated by Anas ibn Malik)",
-      "Let's be honest, how can we love someone we don't know? Think about it, \u201CDo I love the Prophet (ﷺ) more than anything else in this world\u201D? For many of us, to answer this sincerely would be difficult not because of lack of! belief, but because of not knowing him.",
+      "What stopped us from learning the Seerah? Instead of looking back as to why we've not explored His life let's say Bismillah to begin the exploration\u2026",
+      "To follow the Deen sincerely, we must truly know the one we are asked to follow. Prophet (\ufd00) said: \u201CNone of you will have faith until he loves me more than his father, his children, and all mankind.\u201D (Sahih Bukhari, narrated by Anas ibn Malik)",
+      "Let's be honest, how can we love someone we don't know? Think about it, \u201CDo I love the Prophet (\ufd00) more than anything else in this world\u201D? For many of us, to answer this sincerely would be difficult not because of lack of belief, but because of not knowing him.",
       "The obvious next question should be: Where do I begin learning the Seerah. Let's first understand his life, struggles, and challenges, realise the path he travelled and what made him so steadfast in his journey to bring the Deen to us.",
       "At the end of this session, you will not only appreciate but won't hesitate to answer that question with confidence and sincerity, in an Affirmative. In sh\u0101' All\u0101h.",
     ],
@@ -856,20 +847,20 @@ var TAB_CONTENT = {
     heading: 'Seerah <span>Explorer</span>',
     media: '<img class="ws-media" src="https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/52618f9cb_WhatsAppImage2026-06-29at90221PM.jpeg" alt="Seerah Explorer" />',
     paragraphs: [
-      "This is a reflections led session to learn the Seerah and live by example of the Prophet's (ﷺ) life. Beyond the stories. Start living the experience and reclaim the legacy.",
+      "This is a reflections led session to learn the Seerah and live by example of the Prophet's (\ufd00) life. Beyond the stories. Start living the experience and reclaim the legacy.",
       "From childhood, we have all grown up hearing stories, Alhamdulillah! Some meaningful, some moral, and some simple tales meant to scare us into sleep. But pause for a moment and ask yourself: have we truly been told the story of the most important figure in human history? And if not, why?",
-      "Seerah is not just a story, but moments that allow us to experience a life so profound that it stays with us forever, compelling us to share it with generations to come. Because His (ﷺ) life was unlike any other.",
-      "The Prophet (ﷺ) was born after his father passed away, rejected by Halimah due to being fatherless, lost his mother at the age of six, and grew up as an orphan. Despite possessing unmatched character, honesty, and trustworthiness, his own people rejected him as a Prophet. He (ﷺ) was mocked, stoned for calling to the truth, and ultimately driven out of his beloved home.",
-      "Yet through patience, perseverance and prayers, He (ﷺ) established the Deen, returned to Makkah with mercy, and transformed the course of human history until the Day of Qiyamah.",
+      "Seerah is not just a story, but moments that allow us to experience a life so profound that it stays with us forever, compelling us to share it with generations to come. Because His (\ufd00) life was unlike any other.",
+      "The Prophet (\ufd00) was born after his father passed away, rejected by Halimah due to being fatherless, lost his mother at the age of six, and grew up as an orphan. Despite possessing unmatched character, honesty, and trustworthiness, his own people rejected him as a Prophet. He (\ufd00) was mocked, stoned for calling to the truth, and ultimately driven out of his beloved home.",
+      "Yet through patience, perseverance and prayers, He (\ufd00) established the Deen, returned to Makkah with mercy, and transformed the course of human history until the Day of Qiyamah.",
       "As Allah says in the Qur'an: \u201CIndeed, in the Messenger of Allah you have an excellent example for whoever hopes in Allah and the Last Day.\u201D (33:21)",
-      "Let us cherish His (ﷺ) life and revive his Sunnah one step at a time.",
+      "Let us cherish His (\ufd00) life and revive his Sunnah one step at a time.",
     ],
   },
   'Seerah Retreat': {
     heading: 'Seerah <span>Retreat</span>',
     media: '<img class="ws-media" src="https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/be2bb5357_WhatsAppImage2026-06-29at90303PM.jpg" alt="Seerah Retreat" />',
     paragraphs: [
-      "In a noisy chaotic world, the Seerah is your anchor. Find meaning and purpose through the Prophet's (ﷺ) life. Reflect to fix responsibility, enhance accountability, and set the standards of ethics and morality.",
+      "In a noisy chaotic world, the Seerah is your anchor. Find meaning and purpose through the Prophet's (\ufd00) life. Reflect to fix responsibility, enhance accountability, and set the standards of ethics and morality.",
       "Any meaningful and lasting transformation begins by looking within. Muhasabah is true accountability, an honest assessment of whether our actions align with truth, uphold what is right, and restrain what is wrong. This reflection is easy to speak about, but difficult to practice.",
       "So where do we begin? What path do we follow, and what methods truly bring inner change that reflects excellence?",
       "Seerah is that resource with unparalleled wisdom for transformation, filled with clarity, practical reasoning, and lived experience. Yet, seldom transformation happens alone. This requires companionship, accountability, and sincere support much like a trusted companion who keeps you consistent and motivated.",
@@ -900,17 +891,17 @@ function setActiveTab(tab) {
 }
 setActiveTab('Why Learn the Seerah?');
 
-// ===== BLOG (sample posts) =====
+// BLOG
 var BLOG_POSTS = [
   { title: 'The Power of Niyyah', category: 'Reflections', excerpt: 'How intention transforms everyday actions into worship.', author: 'Mohammad Yunus', img: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/d1a879ea8_image.png', date: 'May 2026' },
   { title: 'Lessons from the Hijrah', category: 'Seerah', excerpt: "What the Prophet's migration teaches us about resilience.", author: 'Mohammad Yunus', img: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/767622bde_image.png', date: 'May 2026' },
   { title: 'Taqwa in Modern Life', category: 'Guidance', excerpt: 'Practical ways to cultivate God-consciousness daily.', author: 'Mohammad Yunus', img: 'https://media.base44.com/images/public/6a19a598f6afa0561d5f727d/1e5ae187f_1000192075.png', date: 'April 2026' },
 ];
 document.getElementById('blogGrid').innerHTML = BLOG_POSTS.map(function(p) {
-  return '<div class="blog-card"><img src="' + p.img + '" alt="' + p.title + '"/><div class="blog-card-body"><div class="blog-card-category">' + p.category + '</div><h3>' + p.title + '</h3><p>' + p.excerpt + '</p><div class="blog-card-meta">' + p.author + ' • ' + p.date + '</div></div></div>';
+  return '<div class="blog-card"><img src="' + p.img + '" alt="' + p.title + '"/><div class="blog-card-body"><div class="blog-card-category">' + p.category + '</div><h3>' + p.title + '</h3><p>' + p.excerpt + '</p><div class="blog-card-meta">' + p.author + ' \u2022 ' + p.date + '</div></div></div>';
 }).join('');
 
-// ===== SMOOTH SCROLL =====
+// SMOOTH SCROLL
 document.querySelectorAll('a[href^="#"]').forEach(function(a) {
   a.addEventListener('click', function(e) {
     var id = this.getAttribute('href').slice(1);
